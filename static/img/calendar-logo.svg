@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" role="img" aria-labelledby="title">
+  <title id="title">Calendar Management App</title>
+  <defs><clipPath id="tile"><rect width="48" height="48" rx="10"/></clipPath></defs>
+  <g clip-path="url(#tile)">
+    <path fill="#ff4939" d="M0 0h24v24H0z"/>
+    <path fill="#73cf08" d="M24 0h24v24H24z"/>
+    <path fill="#168fea" d="M0 24h24v24H0z"/>
+    <path fill="#ffc91a" d="M24 24h24v24H24z"/>
+  </g>
+  <rect x="1.5" y="1.5" width="45" height="45" rx="8.5" fill="none" stroke="#fff" stroke-opacity=".8" stroke-width="3"/>
+  <path fill="#fff" d="M15 12h3v4h12v-4h3v4h3v21H12V16h3v-4Zm18 12H15v10h18V24Zm-15-5h-3v2h18v-2h-3v2h-3v-2h-6v2h-3v-2Z"/>
+  <path fill="#ec2690" d="m20 29 2 2 5-6 2 2-7 8-4-4 2-2Z"/>
+</svg>
