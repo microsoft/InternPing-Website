@@ -1,61 +1,103 @@
 ---
 id: installation
 title: Installation Guide
-description: Configure and deploy Calendar Management App for Microsoft Teams.
+description: Build, run, configure, and package the Intern Calendar Teams tab.
 sidebar_position: 3
 ---
 
 # Installation Guide
 
-This guide covers a production-oriented deployment of the React tab, Express API, database, and email service before the application is uploaded to Microsoft Teams.
+The application source lives in the upstream repository's `intern-calendar/` directory. It builds a Vite React frontend and a bundled Node/Express backend.
 
 ## Prerequisites
 
-- Node.js 20 or later and npm 10 or later
-- A Microsoft 365 developer or organizational tenant
-- Permission to create an Entra ID app registration and upload a Teams app
-- A managed database reachable from the backend
-- An email provider capable of sending `.ics` attachments
-- HTTPS endpoints for both the frontend and API
+- Node.js 22 or later, required for the built-in `node:sqlite` `DatabaseSync` API
+- npm and Git
+- A Microsoft 365 tenant for Teams installation
+- Microsoft 365 Agents Toolkit for provision, deploy, and publish workflows
+- Permission to create or use an Entra app registration for production authentication
+- An HTTPS host for production
 
-## 1. Install dependencies
+## 1. Get the application
 
-Run `npm ci` in each application package to install the exact locked dependency graph. Use `npm install` only when intentionally updating dependencies and committing a new lockfile.
-
-## 2. Register the application
-
-Create an app registration in Microsoft Entra ID. Record its client ID and tenant ID, add the frontend origin as a single-page application redirect URI, and expose the backend API scope. Create `Admin` and `Member` app roles, then assign users or groups through the enterprise application.
-
-## 3. Configure the runtime
-
-Set runtime configuration through the deployment platform, never in source control:
-
-```dotenv
-NODE_ENV=production
-PORT=3000
-CLIENT_ORIGIN=https://calendar.example.org
-ENTRA_TENANT_ID=your-tenant-id
-ENTRA_CLIENT_ID=your-client-id
-ENTRA_API_AUDIENCE=api://your-client-id
-DATABASE_URL=your-managed-database-connection
-EMAIL_FROM=calendar@example.org
-EMAIL_PROVIDER_API_KEY=stored-in-secret-manager
+```powershell
+git clone https://github.com/kimsunki12/Microsoft_Intern_Project.git
+cd Microsoft_Intern_Project\intern-calendar
+npm install
 ```
 
-Replace the example values with tenant-specific settings. Rotate any credential that has been committed or shared in plaintext.
+## 2. Build the frontend and server
 
-## 4. Prepare and deploy
+```powershell
+npm run build
+```
 
-Run database migrations before serving traffic. The schema must cover users, role assignments, requests, decisions, ICS UIDs, and delivery attempts. Build and host the React assets over HTTPS. Deploy Express on Node.js 20 with health checks, structured logging, secret injection, and a CORS allowlist containing only the frontend origin.
+The build uses Vite for the React tab and `tsup` for the Node backend.
 
-## 5. Create the Teams package
+## 3. Run locally
 
-1. In Teams Developer Portal, create an app and complete its descriptions, privacy URL, terms URL, and support contact.
-2. Add a personal or team tab whose content URL points to the deployed frontend.
-3. Add the frontend host to **Valid domains**.
-4. Configure single sign-on with the Entra client ID and API resource URI.
-5. Download the package and upload it to your tenant or submit it to the organizational catalog.
+```powershell
+$env:PORT = "3978"
+node .
+```
 
-## 6. Verify the deployment
+Open `http://localhost:3978/tabs/home`. When Entra variables are not set, the server starts in development authentication mode and the UI supports local user switching.
 
-Sign in as a Member and submit a request. Confirm that an Admin can approve it, the requester sees every transition, the recipient receives exactly one ICS attachment, and Outlook displays the expected local time and attendees. Repeat with a rejection and a simulated provider failure.
+The first run creates the SQLite database and seeds the static Korea ABS STU team roster. By default, data is stored in `data/intern-calendar.db`.
+
+## 4. Runtime configuration
+
+| Variable | Default | Purpose |
+| --- | --- | --- |
+| `PORT` | `3978` | Express server port |
+| `ENTRA_TENANT_ID` | none | Entra tenant used to validate production tokens |
+| `ENTRA_CLIENT_ID` | none | Entra application/client ID and token audience |
+| `DB_FILE` | `data/intern-calendar.db` | SQLite database file |
+| `DATA_DIR` | `./data` | Runtime data directory |
+| `DEFAULT_ROLE` | `member` | Role assigned to a newly recognized user |
+
+Example production shell configuration:
+
+```powershell
+$env:PORT = "3978"
+$env:ENTRA_TENANT_ID = "<tenant-id>"
+$env:ENTRA_CLIENT_ID = "<application-id>"
+$env:DB_FILE = "D:\intern-calendar-data\intern-calendar.db"
+node .
+```
+
+Do not deploy with development authentication enabled. Protect the database directory and back it up outside the application process.
+
+## 5. Provision the Teams app
+
+The repository includes these deployment inputs:
+
+- `appPackage/manifest.json`: Teams app and static tab definition
+- `aad.manifest.json`: Entra application definition and exposed scope
+- `m365agents.yml`: provision, deploy, and publish lifecycle
+- `m365agents.local.yml`: local development overrides
+
+Use Microsoft 365 Agents Toolkit to run the provision and deploy lifecycle for the target tenant. The deployed host must serve the tab at `/tabs/home`, be listed as a valid domain in the Teams manifest, and use HTTPS.
+
+## 6. Import legacy Outlook data
+
+Use the UI import dialog or the migration script to inspect an Outlook SQL export:
+
+```powershell
+node scripts/import-outlook-sql.mjs "C:\path\to\events.sql" --dry-run
+node scripts/import-outlook-sql.mjs "C:\path\to\events.sql"
+```
+
+Add `--reset` only when existing event data should be cleared. The parser extracts supported `INSERT` values; it does not execute the uploaded SQL file directly.
+
+## 7. Verify the deployment
+
+1. Open the static tab in Teams and confirm Entra authentication succeeds.
+2. Create an event as a member and verify that it is pending.
+3. Approve, hold, and reject test events as an administrator.
+4. Change a test user's role and verify that the final administrator cannot be removed.
+5. Assign an intern to overlapping approved events and confirm the conflict warning.
+6. Download an all-day and a timed ICS file and open both in Outlook.
+7. Restart the service and verify that SQLite data persists.
+
+The repository does not currently define an automated test command, so these runtime checks are important before tenant publication.

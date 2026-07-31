@@ -1,53 +1,114 @@
 ---
 id: architecture
 title: Architecture
-description: System design and request lifecycle for Calendar Management App.
+description: Runtime components, data model, authentication, and event flows.
 sidebar_position: 2
 ---
 
 # Architecture
 
-The application uses a layered architecture that keeps the Teams experience, business rules, persistence, and calendar delivery independently testable.
+Intern Calendar is a single Node.js application that serves a React Teams tab and an Express JSON API. Shared TypeScript types keep the browser and server contracts aligned, while SQLite provides local persistence.
 
 ```mermaid
-flowchart TD
-    U[Users] --> T[Microsoft Teams App]
-    T --> R[React Frontend]
-    R --> E[Express Backend API]
-    E --> D[(Database)]
-    E --> I[ICS Generator]
-    I --> M[Email Delivery]
-    M --> O[Outlook Calendar]
+flowchart LR
+    U[Teams user] --> T[Microsoft Teams tab]
+    T --> R[React + Vite SPA]
+    R -->|Bearer token + JSON| A[Express API]
+    A --> J[Entra JWT verification]
+    J --> P[Role provider]
+    A --> S[(SQLite in WAL mode)]
+    A --> C[Conflict and approval logic]
+    A --> I[ICS generator]
+    O[Outlook SQL export] --> X[Validated SQL parser]
+    X --> A
+    I --> D[ICS download]
+    D --> OC[Outlook or calendar client]
 ```
 
-## Component responsibilities
+## Runtime components
 
-| Component | Responsibility |
+| Component | Implementation | Responsibility |
+| --- | --- | --- |
+| Teams host | Teams static tab and `@microsoft/teams-js` | Loads `/tabs/home`, supplies host context, and participates in authentication |
+| Frontend | React, TypeScript, Vite | Month/week views, event dialogs, approval side panel, import, role management, and messages |
+| Application host | `@microsoft/teams.apps` with `ExpressAdapter` | Starts the Node server and integrates Teams development tooling |
+| API | Express route handlers | Authentication, authorization, validation, event transitions, and JSON contracts |
+| Persistence | Node.js `DatabaseSync` SQLite | Users, events, assignees, categories, decisions, and audit logs |
+| Shared domain | TypeScript types and date utilities | Roles, statuses, categories, request types, and local-date handling |
+| Calendar export | Server-side ICS generator | Produces all-day or timed iCalendar downloads |
+
+## Frontend composition
+
+`App.tsx` owns the main React state and coordinates these views:
+
+- `MonthCalendar` and `WeekGrid` for calendar navigation
+- `EventDialog` for create and edit operations
+- `SidePanel` for the administrator approval queue
+- `UserManagement` for role changes
+- `ImportDialog` for Outlook SQL migration
+- `MessageBar` for operation feedback
+
+The browser API client uses `fetch` and refreshes local state after mutations. There is no WebSocket or offline synchronization layer.
+
+## API surface
+
+All routes require authentication except the ICS download.
+
+| Method and route | Purpose |
 | --- | --- |
-| Microsoft Teams App | Hosts the tab, provides Teams context, and initiates authentication. |
-| React frontend | Renders forms, dashboards, review controls, and status feedback. |
-| Express backend API | Validates input, enforces roles, controls state transitions, and coordinates delivery. |
-| Database | Stores users, requests, decisions, event identifiers, and delivery outcomes. |
-| ICS generator | Converts an approved request into a standards-compatible invitation. |
-| Email delivery | Sends the invitation and records a provider identifier or failure. |
-| Outlook Calendar | Imports the invitation for each recipient. |
+| `GET /api/me` | Return the current user, events, users, and audit data needed to boot the UI |
+| `GET /api/users` | List the team roster |
+| `POST /api/events` | Validate and create an event |
+| `PUT /api/events/:id` | Update an authorized event |
+| `DELETE /api/events/:id` | Delete an authorized event |
+| `POST /api/decisions` | Approve, hold, or reject an event as an administrator |
+| `POST /api/users/:id/role` | Change a user role as an administrator |
+| `GET /api/ics/:eventId` | Download a single event as `.ics` without authentication |
 
-## Request lifecycle
+## Data model
 
-1. Teams supplies authenticated user context to the frontend.
-2. The frontend acquires an API token and submits a request over HTTPS.
-3. The API validates the token, role, payload, attendees, and time range.
-4. The database records the request as **Pending**.
-5. An admin approves or rejects it through an authorized endpoint.
-6. Approval creates an ICS payload with a persistent UID and queues email delivery.
-7. The delivery result updates the request to **Sent** or **Delivery failed**.
+SQLite is stored in `data/intern-calendar.db` by default and uses write-ahead logging. The schema contains:
 
-## Security and reliability
+- `users`: identity, email, display name, role, and UI color
+- `events`: content, category, local dates/times, status, requester, and organizer data
+- `assignees`: many-to-many event assignments
+- `decisions`: administrator actions and reasons
+- `audit_logs`: recorded access and mutations
+- `categories`: supported event categories
 
-- Use Microsoft Entra ID tokens; never trust role data supplied by the browser.
-- Apply authorization and input validation on every mutating API route.
-- Store secrets only in the deployment platform's secret manager.
-- Restrict CORS to the deployed Teams tab origin and encrypt all connections.
-- Persist the ICS UID before sending and use an idempotency key for delivery.
-- Retry transient provider failures with bounded exponential backoff.
-- Log approval and delivery events without access tokens or invitation attachments.
+Prepared statements bind all database values. SQLite is appropriate for the current small team deployment, but its single-writer model and local file storage require deliberate backup and scaling plans.
+
+## Authentication and authorization
+
+Production mode is selected when both `ENTRA_TENANT_ID` and `ENTRA_CLIENT_ID` are configured. The API verifies bearer JWTs with Entra's remote JWKS and resolves the application role from the database.
+
+Without those variables, the server enters development mode and allows local identity switching. Development mode must not be exposed as a production deployment.
+
+## Event lifecycle
+
+```mermaid
+stateDiagram-v2
+    [*] --> Pending: Member creates event
+    [*] --> Approved: Admin creates event
+    Pending --> Approved: Admin approves
+    Pending --> OnHold: Admin holds
+    OnHold --> Approved: Admin approves
+    Pending --> Rejected: Admin rejects
+    OnHold --> Rejected: Admin rejects
+    Approved --> ICS: User downloads event
+```
+
+1. The frontend validates the form and posts an `EventInput` payload.
+2. The API verifies identity, resolves the database-backed role, and validates dates, times, and assignees.
+3. Conflict detection checks whether selected assignees already have overlapping approved events.
+4. SQLite stores the event as pending for members or approved for administrators.
+5. Administrator decisions update status and append decision/audit data.
+6. A user can request the event's ICS representation and import the downloaded file into Outlook.
+
+## Operational boundaries
+
+- The application is single-tenant and uses a static Korea ABS STU roster.
+- Calendar dates assume a shared local timezone; recurring events are not implemented.
+- ICS download is anonymous, so event identifiers should be treated as shareable links.
+- There is no automatic email, Graph calendar synchronization, rate limiting, or real-time refresh.
+- WAL improves SQLite concurrency but does not provide replication or automatic backup.

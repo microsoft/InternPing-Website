@@ -1,49 +1,83 @@
 ---
 id: user-guide
 title: User Guide
-description: Daily workflows for members and administrators.
+description: Calendar, event, approval, import, export, and role workflows.
 sidebar_position: 4
 ---
 
 # User Guide
 
-Calendar Management App opens as a tab in Microsoft Teams. The interface adapts to the signed-in user's `Member` or `Admin` role.
+Intern Calendar opens as a Microsoft Teams static tab. The interface displays a shared team calendar and exposes actions according to the signed-in user's `intern`, `member`, or `admin` role.
 
-## For members
+## Navigate the calendar
 
-### Submit a request
+Use the view selector to switch between the month grid and the seven-day week grid. Move to the previous or next period with the calendar navigation controls. Event colors and labels communicate category and approval status.
 
-1. Open **Calendar Management** in Teams and select **New request**.
-2. Enter a clear title and useful description.
-3. Choose the event date, start time, end time, and time zone.
-4. Add a physical location or Teams meeting link.
-5. Add attendee email addresses and verify their spelling.
-6. Select **Submit request**.
+Open an event to inspect its title, description, location, date range, optional time, requester, organizer, assignees, and current status.
 
-The request appears in **My requests** as Pending. Submission does not send an invitation; an admin must approve it first.
+## Create an event
 
-### Track or correct a request
+Members and administrators can create events.
 
-Filter by status or search by event title. Open a request to see its details, submission time, status, and reviewer message. If rejected, read the reason, correct the information, and create a new request. The rejected record remains unchanged for audit history.
+1. Select the create-event action.
+2. Enter a title and, when useful, a description and location.
+3. Choose a category.
+4. Set the start and end dates.
+5. Add start and end times for a timed event, or leave them empty for an all-day event.
+6. Select the interns assigned to the event.
+7. Review conflict warnings and submit.
 
-## For admins
+A member's event starts as **Pending**. An administrator's event starts as **Approved**. Conflict warnings identify assignees who already have an overlapping approved event; they do not automatically resolve the overlap.
 
-### Review pending work
+## Edit or delete an event
 
-Open **Approval queue** and select the oldest pending request. Verify the organizer, attendees, time zone, duration, location, and description. Check for duplicate or conflicting events before deciding.
+Open an event and choose the available edit or delete action. The API applies role checks in addition to the controls shown in the interface. After a successful change, refresh or reload calendar data if another session does not yet show the update; the app does not use real-time push updates.
 
-### Approve or reject
+## Administrator approval queue
 
-Select **Approve** to lock the reviewed details and begin ICS delivery. Monitor the request until it reaches Sent. Select **Reject** to provide an actionable reason, such as a missing attendee, invalid meeting link, or scheduling conflict.
+Administrators can open the side panel to review pending and held events.
+
+- **Approve** confirms the event.
+- **Hold** pauses the event while information or availability is checked.
+- **Reject** declines the event.
+- A reason can be recorded with a decision.
+
+Decisions are stored with the event workflow and audit data. Approval does not send an email or write directly to Outlook.
+
+## Manage user roles
+
+Administrators can open user management, select a roster member, and assign `intern`, `member`, or `admin`. The server rejects a change that would leave the application without an administrator.
+
+## Import Outlook SQL data
+
+The import dialog is intended for migration from the project's earlier Outlook-oriented schema.
+
+1. Select the SQL export file.
+2. Review the parsed event preview and validation messages.
+3. Confirm the import.
+4. Review the resulting calendar for duplicates and unsupported source values.
+
+The importer parses supported `INSERT` statements as text and maps them to the current categories and statuses. It does not run arbitrary uploaded SQL against SQLite.
+
+## Export an event to Outlook
+
+Open an event and download its `.ics` file. Open the file in Outlook or another iCalendar-compatible client and save it to the desired calendar.
+
+- All-day events export date-only start and end properties.
+- Timed events export UTC timestamps generated from the stored wall-clock values.
+- Title, description, location, and organizer are included when available.
+
+ICS export is manual. There is no automatic email delivery or two-way Outlook synchronization.
 
 ## Status reference
 
-| Status | Meaning | Next owner |
-| --- | --- | --- |
-| Pending | Submitted and awaiting review | Admin |
-| Approved | Accepted; invitation generation is running | System |
-| Rejected | Declined with a reviewer reason | Member |
-| Sent | Email provider accepted the invitation | Recipient |
-| Delivery failed | Invitation could not be sent | Admin |
+| Status | User action |
+| --- | --- |
+| Pending | Wait for an administrator decision |
+| Approved | Treat the event as confirmed; export it when an Outlook copy is needed |
+| On hold | Review missing details or schedule conflicts with an administrator |
+| Rejected | Read the decision reason and create or edit an appropriate replacement |
 
-Use titles recipients will recognize, verify time zones for distributed teams, and avoid sensitive information in calendar fields because invitations may be forwarded.
+## Local development mode
+
+When Entra configuration is absent, the app displays development identity controls. Use them only on a local machine. A hosted deployment must configure Entra token validation and must never expose development mode to untrusted users.

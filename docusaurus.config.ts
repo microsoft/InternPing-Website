@@ -11,7 +11,7 @@ const projectName = process.env.GITHUB_REPOSITORY?.split('/')[1] ?? 'calendar-ma
 
 const config: Config = {
   title: 'Calendar Management App',
-  tagline: 'Calendar requests, approvals, and Outlook invitations inside Microsoft Teams',
+  tagline: 'Team event planning, approvals, and ICS export inside Microsoft Teams',
   favicon: 'img/mascot-walking.png',
 
   // Future flags, see https://docusaurus.io/docs/api/docusaurus-config#future
@@ -63,7 +63,7 @@ const config: Config = {
       {name: 'theme-color', content: '#0f6cbd'},
       {
         name: 'keywords',
-        content: 'Microsoft Teams, calendar management, approvals, Outlook, ICS',
+        content: 'Microsoft Teams, intern calendar, approvals, SQLite, Entra ID, Outlook, ICS',
       },
     ],
     colorMode: {

@@ -1,6 +1,8 @@
-# Calendar Management App Documentation
+# InternPing Documentation
 
-Product documentation for the Microsoft Teams-based Calendar Management App. The site is built with Docusaurus 3 and deployed to GitHub Pages.
+English product and technical documentation for the Intern Calendar application in [Microsoft_Intern_Project](https://github.com/kimsunki12/Microsoft_Intern_Project). The documented application is a React and Express Microsoft Teams tab with SQLite persistence, Entra authentication, role-aware event approvals, Outlook SQL import, and manual ICS export.
+
+This site is built with Docusaurus 3 and deployed to GitHub Pages. It documents the application but does not contain the application runtime itself.
 
 ## Local development
 
@@ -37,7 +39,7 @@ For a user or organization site whose repository is named `<owner>.github.io`, c
 ## Content map
 
 - `/` - Product overview
-- `/docs/features` - Product capabilities and roles
-- `/docs/architecture` - System flow, security, and reliability
-- `/docs/installation` - Tenant and production setup
-- `/docs/user-guide` - Member and admin workflows
+- `/docs/features` - Implemented calendar, workflow, import, and export capabilities
+- `/docs/architecture` - React, Express, Entra, SQLite, API, and data flows
+- `/docs/installation` - Local runtime, configuration, and Teams deployment
+- `/docs/user-guide` - Intern, member, and administrator workflows
