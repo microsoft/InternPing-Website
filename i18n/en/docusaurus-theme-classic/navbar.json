@@ -1,0 +1,18 @@
+{
+  "title": {
+    "message": "InternPing",
+    "description": "The title in the navbar"
+  },
+  "logo.alt": {
+    "message": "InternPing",
+    "description": "The alt text of navbar logo"
+  },
+  "item.label.설치": {
+    "message": "Install",
+    "description": "Navbar item with label 설치"
+  },
+  "item.label.사용자 가이드": {
+    "message": "User guide",
+    "description": "Navbar item with label 사용자 가이드"
+  }
+}

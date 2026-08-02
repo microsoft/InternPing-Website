@@ -4,10 +4,10 @@ import type {SidebarsConfig} from '@docusaurus/plugin-content-docs';
 
 const sidebars: SidebarsConfig = {
   productSidebar: [
-    'features',
-    'architecture',
     'installation',
     'user-guide',
+    'features',
+    'architecture',
   ],
 };
 
