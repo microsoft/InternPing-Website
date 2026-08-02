@@ -1,70 +1,103 @@
 ---
 id: features
-title: Features
-description: Implemented capabilities of the Intern Calendar Teams application.
+title: 주요 기능
+description: 인턴핑에 구현된 캘린더, 승인, Outlook 연동 및 관리자 기능입니다.
 sidebar_position: 1
 ---
 
-# Features
+# 주요 기능
 
-Intern Calendar is a Microsoft Teams tab for the Korea ABS STU team. It combines a shared calendar, an approval queue, role administration, Outlook data import, and standards-based calendar export in one React application.
+인턴핑은 팀의 인턴 투입 가능 시간을 한눈에 확인하고 투입 예약부터 관리자 승인까지 처리하는 Microsoft Teams 탭 앱입니다.
 
-## Month and week calendars
+## 인턴 중심 캘린더
 
-Users can switch between month and week views. Events are shown with their category, date or date range, optional time, assignees, and approval status. Dates are stored as local `YYYY-MM-DD` values so day placement remains stable in the team calendar.
+- **주간 보기:** 인턴별 행과 날짜별 열로 구성되어 빈 날짜를 바로 찾을 수 있습니다.
+- **월간 보기:** 한 달 전체 일정과 상태를 확인합니다.
+- **모바일 보기:** 640px 이하 화면에서는 날짜별 목록과 하단 상세 패널을 사용합니다.
+- **필터:** 확정·승인 대기·보류·반려 상태와 대상자를 선택합니다.
+- **바로 등록:** 주간 보기의 빈 칸을 선택하면 해당 대상자와 날짜가 입력된 예약 창이 열립니다.
 
-## Event creation and editing
+시간 일정은 주간 화면에서 시간대에 맞춰 표시되고 빈 시간 선택은 30분 단위로 맞춰집니다.
 
-The event dialog supports:
+## 투입 예약과 일정 관리
 
-- Title, description, and location
-- Category: education, hackathon/customer, meeting, support, leave, or other
-- Start and end dates
-- Optional `HH:mm` start and end times
-- One or more intern assignees
+일정에는 제목, 설명, 장소, 분류, 날짜, 선택적인 시간과 한 명 이상의 대상자를 저장할 수 있습니다. 분류는 교육, 해커톤/고객사, 미팅, 업무 지원, 휴가/부재와 기타로 나뉩니다.
 
-The API validates required values and checks approved events for assignee conflicts. Members create pending events; administrators create approved events immediately. Existing events can be edited or deleted through authorized API routes.
+관리자가 만든 일정은 즉시 확정되고 그 외 사용자가 만든 일정은 승인 대기로 저장됩니다. 일반 사용자는 본인이 신청한 미확정 일정을 수정할 수 있으며 관리자는 모든 일정을 관리할 수 있습니다.
 
-## Approval workflow
+## 승인 워크플로
 
-The administrator side panel lists events that need attention. An administrator can approve, put on hold, or reject an event and optionally record a reason. Each decision updates the event and creates an audit record.
+관리자는 승인 대기 또는 보류 일정을 **승인**, **보류**, **반려**할 수 있습니다. 처리 사유는 최대 500자까지 기록되며 신청·수정·처리·삭제 이력과 함께 보관됩니다.
 
-| Status | Meaning |
-| --- | --- |
-| `pending` | Waiting for an administrator decision |
-| `approved` | Confirmed on the team calendar |
-| `on_hold` | Paused while details or availability are reviewed |
-| `rejected` | Declined by an administrator |
+```mermaid
+stateDiagram-v2
+    [*] --> 승인대기: 일반 사용자 신청
+    [*] --> 확정: 관리자 생성
+    승인대기 --> 확정: 승인
+    승인대기 --> 보류: 보류
+    승인대기 --> 반려: 반려
+    보류 --> 확정: 승인
+    보류 --> 반려: 반려
+```
 
-## Three application roles
+## 중복 투입 확인
 
-| Capability | Intern | Member | Admin |
+선택한 대상자가 같은 기간의 다른 **확정 일정**에 배정되어 있는지 검사합니다.
+
+- 두 일정 중 하나라도 종일 일정이면 날짜가 겹칠 때 충돌합니다.
+- 두 일정 모두 시간이 있으면 실제 시간 구간이 겹칠 때 충돌합니다.
+- 승인 대기 일정끼리는 아직 확정된 배정이 아니므로 충돌 대상으로 계산하지 않습니다.
+
+## 역할별 기능
+
+| 기능 | 인턴 | 팀원 | 관리자 |
 | --- | :---: | :---: | :---: |
-| View the shared calendar | Yes | Yes | Yes |
-| Be assigned to an event | Yes | Yes | Yes |
-| Create an event | Yes | Yes | Yes |
-| Upload Outlook SQL events | Own calendar | No | API only; selected users |
-| Approve, hold, or reject | No | No | Yes |
-| Change user roles | No | No | Yes |
+| 캘린더와 일정 상세 확인 | O | O | O |
+| 투입 예약 신청 | O | O | O |
+| 본인의 미확정 신청 수정 | O | O | O |
+| Outlook SQL 일정 업로드 | 본인 일정 | X | API에서 대상자 선택 |
+| 일정 승인·보류·반려 | X | X | O |
+| 모든 일정 수정·삭제 | X | X | O |
+| 사용자 역할 변경 | X | X | O |
 
-The Express API enforces administrative operations. The current role provider reads roles from SQLite and can later be replaced by another provider, such as Entra group mapping.
+마지막 관리자는 강등할 수 없으며 `ADMIN_EMAILS`에 지정된 계정은 항상 관리자로 유지됩니다.
 
-## User management
+## Outlook SQL 일정 업로드
 
-Administrators can review the seeded team roster and change user roles. The backend prevents an update that would remove the final administrator. User colors are stored with each profile and used for calendar avatars and visual identity.
+현재 화면에서는 인턴이 본인의 기존 Outlook 일정을 가져올 수 있습니다. API는 관리자가 선택한 사용자의 일정을 가져오는 기능도 지원하지만 관리자 화면에는 업로드 버튼이 없습니다.
 
-## Outlook SQL import
+- 브라우저에서 제목별 미리보기와 선택 제공
+- 내부 주최 일정은 기본 선택, 외부 주최 일정은 기본 제외
+- 최대 파일 크기 4MB, 최대 1,000건
+- 알 수 없는 분류는 기타로 변환
+- 원본 ID 또는 제목·날짜·시간이 같은 일정의 중복 방지
+- 여러 사용자가 같은 회의를 올리면 일정 하나에 대상자 병합
 
-The import workflow is shown in the UI to interns for their own calendar. The API also permits administrators to import for selected users, although the current admin interface does not expose an upload button. It accepts SQL `INSERT` statements exported from the previous Outlook-oriented data model. The parser reads the statements as data rather than executing the uploaded SQL, validates categories and statuses, and limits each upload to 4 MB and 1,000 events.
+업로드된 SQL을 데이터베이스에서 실행하지 않습니다. `INSERT INTO events`의 값만 파싱한 뒤 준비된 문장으로 저장합니다.
 
-The preview groups events by title. Internal organizers are selected by default and external organizers are initially excluded. Events with the same ID are skipped; events with the same normalized title, dates, and times are merged by adding assignees instead of creating duplicate rows. A CLI migration script also supports dry-run and reset modes.
+## Outlook용 ICS 내보내기
 
-## ICS export
+인증된 사용자는 일정 상세에서 `.ics` 파일을 내려받을 수 있습니다. 파일에는 제목, 설명, 장소, 상태, 주최자와 대상자가 포함됩니다.
 
-Each authenticated user can download an event as an iCalendar (`.ics`) file and open it in Outlook or another compatible calendar client. All-day events use date values; timed events are converted to UTC using `Asia/Seoul` by default. The file can include the title, description, location, status, organizer, and assignees.
+- 종일 일정은 날짜 형식으로 내보냅니다.
+- 시간 일정은 기본 `Asia/Seoul` 시간대를 기준으로 UTC로 변환합니다.
+- 파일명과 텍스트를 RFC 5545 형식에 맞게 정리합니다.
 
-The current application does **not** send email or automatically synchronize Outlook calendars. Export is a user-initiated download.
+ICS 내보내기는 수동 방식입니다. Outlook 자동 동기화, 이메일 발송 또는 Teams 알림은 현재 제공하지 않습니다.
 
-## Teams-hosted experience
+## Teams 및 모바일 환경
 
-The React SPA runs as a static Teams tab at `/tabs/home`. The Teams JavaScript SDK supplies host context and supports the production sign-in flow. Local development falls back to a clearly identified development mode with user switching when Entra configuration is absent.
+- Teams SSO로 로그인하고 Entra 토큰을 서버에서 검증합니다.
+- Teams의 기본, 다크, 고대비 테마를 반영합니다.
+- 640px 이하 모바일 화면에서는 캘린더를 날짜별 목록으로 바꾸고 상세 내용을 하단 시트로 표시합니다.
+- 다이얼로그 초점 관리와 메시지 심각도 텍스트를 제공합니다.
+- CSP의 `frame-ancestors`를 사용해 허용된 Teams 호스트에서만 탭을 감쌀 수 있습니다.
+
+## 현재 제공하지 않는 기능
+
+- Microsoft Graph 기반 Outlook 자동 동기화
+- 반복 일정 생성
+- 승인·반려 이메일 또는 Adaptive Card 알림
+- 실시간 화면 갱신과 오프라인 사용
+- 여러 서버 인스턴스를 사용하는 확장
+- 관리자 화면에서 팀 명단 자체를 추가·삭제하는 기능

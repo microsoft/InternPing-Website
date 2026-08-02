@@ -1,187 +1,183 @@
 ---
 id: user-guide
-title: User Guide
-description: Use the InternPing calendar, requests, approvals, Outlook upload, and export workflows.
+title: 사용자 가이드
+description: 인턴핑의 캘린더, 투입 예약, 승인, Outlook 일정 업로드 및 내보내기 사용법입니다.
 sidebar_position: 4
 ---
 
-# User Guide
+# 사용자 가이드
 
-InternPing is a Microsoft Teams tab for reviewing intern availability and managing assignment requests. Available actions depend on the signed-in user's role.
+인턴핑은 Microsoft Teams 안에서 인턴의 일정을 확인하고 투입 예약을 관리하는 탭 앱입니다. 로그인한 사용자의 역할에 따라 사용할 수 있는 기능이 달라집니다.
 
-| Role | Main capabilities |
+| 역할 | 주요 기능 |
 | --- | --- |
-| Intern | Review personal assignments, upload Outlook events, and submit requests |
-| Member | Review the calendar, submit requests, and edit owned requests before approval |
-| Admin | Manage all events, make approval decisions, and manage user roles |
+| 인턴 | 본인 일정 확인, Outlook 일정 업로드, 투입 예약 신청 |
+| 팀원 | 캘린더 확인, 투입 예약 신청, 승인 전 본인 신청 수정 |
+| 관리자 | 모든 일정 관리, 승인·보류·반려, 사용자 역할 관리 |
 
-## Workflow at a glance
+## 전체 사용 흐름
 
-Use one workspace to review availability, filter schedules, create assignments, export events to Outlook, and manage existing schedules.
+하나의 화면에서 인턴의 일정을 확인하고, 필터링하고, 투입을 예약하고, Outlook에 추가하며, 기존 일정을 관리할 수 있습니다.
 
-![Annotated overview of the complete InternPing workflow, including calendar views, filters, assignment creation, Outlook export, and event management](/img/user-guide/en/06-workflow.png)
+![캘린더 확인, 필터, 일정 등록, Outlook 내보내기 및 일정 관리를 포함한 인턴핑 전체 사용 흐름](/img/user-guide/ko/06-workflow.png)
 
-*The complete workflow from calendar review to schedule management.*
+*캘린더 확인부터 일정 관리까지의 전체 흐름입니다.*
 
-## 1. Review the calendar
+## 1. 캘린더 확인하기
 
-The app opens in **Week** view by default. Each row represents an intern and each column represents a date, making open days and existing assignments easy to compare.
+앱을 열면 **주간 보기**가 기본으로 표시됩니다. 각 행은 인턴을, 각 열은 날짜를 나타내므로 비어 있는 날짜와 기존 투입 일정을 쉽게 비교할 수 있습니다.
 
-1. Use the previous and next controls to change the displayed period.
-2. Select **Week** or **Month** view.
-3. Use the status filters to show or hide approved, pending, on-hold, and rejected events.
-4. Use the assignee filter to focus on one intern.
-5. Select an event to review its title, period, location, organizer, assignees, and status.
+1. 이전·다음 버튼으로 표시 기간을 이동합니다.
+2. **주간** 또는 **월간** 보기를 선택합니다.
+3. 상태 필터에서 확정, 승인 대기, 보류, 반려 일정을 표시하거나 숨깁니다.
+4. 대상자 필터에서 특정 인턴의 일정만 선택합니다.
+5. 일정을 선택해 제목, 기간, 장소, 주최자, 대상자와 상태를 확인합니다.
 
-At widths of 640px or less, the calendar grid changes to a date-based agenda. Event details open in a sheet from the bottom of the screen.
+화면 너비가 640px 이하이면 캘린더 격자 대신 날짜별 목록이 표시됩니다. 일정 상세는 화면 아래에서 올라오는 패널로 열립니다.
 
-![Annotated overview of the InternPing main screen showing the calendar, filters, pending requests, event details, upload action, and assignment request action](/img/user-guide/en/00-overview.png)
+![캘린더, 필터, 승인 대기 목록, 일정 상세, 업로드와 투입 예약 버튼을 표시한 인턴핑 메인 화면](/img/user-guide/ko/00-overview.png)
 
-*Main screen: calendar, filtering controls, pending requests, and event details.*
+*메인 화면에서 캘린더, 필터, 승인 대기 목록과 일정 상세를 확인합니다.*
 
-### Filter by status
+### 일정 상태로 필터링하기
 
-Select one or more status buttons to limit the calendar to approved, pending, on-hold, or rejected schedules. Select an active status again to remove it from the filter.
+상태 버튼을 하나 이상 선택하면 확정, 승인 대기, 보류 또는 반려 일정만 볼 수 있습니다. 활성화된 상태를 다시 선택하면 필터에서 제외됩니다.
 
-![Annotated InternPing week view highlighting the approved, pending, on-hold, and rejected status filters](/img/user-guide/en/02-1-filter-status.png)
+![확정, 승인 대기, 보류 및 반려 상태 필터를 강조한 인턴핑 주간 보기](/img/user-guide/ko/02-1-filter-status.png)
 
-*Status filters narrow the calendar to the selected workflow states.*
+*상태 필터를 사용해 필요한 처리 상태의 일정만 확인합니다.*
 
-### Filter by intern
+### 인턴별로 필터링하기
 
-Open the intern selector and choose either all interns or one person. The calendar updates to show only schedules assigned to that selection.
+인턴 선택 메뉴를 열고 전체 또는 한 명을 선택합니다. 캘린더에는 선택한 대상자의 일정만 표시됩니다.
 
-![Annotated InternPing week view highlighting the intern filter dropdown](/img/user-guide/en/02-2-filter-intern.png)
+![인턴 선택 필터를 강조한 인턴핑 주간 보기](/img/user-guide/ko/02-2-filter-intern.png)
 
-*The intern filter focuses the calendar on one assignee.*
+*인턴 필터를 사용해 한 명의 일정에 집중할 수 있습니다.*
 
-{/* SCREENSHOT: calendar-month-and-mobile | Month view or mobile agenda */}
+{/* SCREENSHOT: calendar-month-and-mobile | 월간 보기 또는 모바일 목록 */}
 
-## 2. Submit an assignment request
+## 2. 투입 예약 신청하기
 
-1. Select **Assignment request** in the upper-right corner. Admins see **Create event** in the same location.
-2. Enter the event title.
-3. Add a description and location when needed.
-4. Choose Education, Hackathon/Customer, Meeting, Support, Leave/Absence, or Other.
-5. Set the start and end dates.
-6. For a timed event, enter start and end times. Leave both fields empty for an all-day event.
-7. Select at least one assignee.
-8. Review the details and save the event.
+1. 화면 오른쪽 위의 **투입 예약**을 선택합니다. 관리자는 같은 위치에 **일정 만들기**가 표시됩니다.
+2. 일정 제목을 입력합니다.
+3. 필요하면 설명과 장소를 입력합니다.
+4. 교육, 해커톤/고객사, 미팅, 업무 지원, 휴가/부재, 기타 중 분류를 선택합니다.
+5. 시작일과 종료일을 지정합니다.
+6. 시간 일정이면 시작·종료 시간을 입력하고, 종일 일정이면 두 필드를 비워 둡니다.
+7. 일정 대상자를 한 명 이상 선택합니다.
+8. 내용을 확인하고 저장합니다.
 
-Events created by non-admin users start as **Pending**. Events created by an admin are immediately **Approved**.
+일반 사용자가 만든 일정은 **승인 대기**로 저장됩니다. 관리자가 만든 일정은 즉시 **확정**됩니다.
 
-The app warns when an assignee already has an overlapping approved event. An all-day event conflicts with another event on an overlapping date. Two timed events conflict only when their time intervals overlap.
+대상자에게 겹치는 확정 일정이 있으면 충돌 안내가 표시됩니다. 종일 일정은 날짜가 겹치면 충돌하고, 시간이 있는 두 일정은 실제 시간 구간이 겹칠 때 충돌합니다.
 
-![Annotated InternPing assignment form showing the title, category, location, dates, times, assignees, request reason, and submit action](/img/user-guide/en/01-add-schedule.png)
+![제목, 분류, 장소, 날짜, 시간, 대상자, 신청 사유와 제출 버튼을 표시한 인턴핑 투입 예약 입력창](/img/user-guide/ko/01-add-schedule.png)
 
-*Complete the assignment details, select the target interns, and submit the request.*
+*투입 내용을 입력하고 대상자를 선택한 뒤 예약을 신청합니다.*
 
-{/* SCREENSHOT: event-conflict-warning | Overlapping assignment warning */}
+{/* SCREENSHOT: event-conflict-warning | 중복 투입 경고 */}
 
-## 3. Edit or delete an event
+## 3. 일정 수정 또는 삭제하기
 
-1. Select an event in the calendar.
-2. Select **Edit** or **Delete** in the details panel.
-3. When editing, update the fields and save the event.
+관리자는 모든 일정을 수정하거나 삭제할 수 있습니다. 일반 사용자는 본인이 신청했고 아직 확정되지 않은 일정만 수정할 수 있습니다. Outlook에서 가져온 일정의 대상자는 본인 일정을 제거할 수 있습니다. 여러 대상자가 함께 등록된 일정에서는 현재 사용자만 대상자에서 제외됩니다.
 
-Admins can edit or delete any event. A non-admin can edit an event only when they requested it and it has not been approved. An assignee can remove an imported Outlook event from their own calendar. If an imported event has multiple assignees, removing it as an assignee removes only that user from the event.
+변경 내용은 다른 사용자의 열린 화면에 실시간으로 전송되지 않습니다. 다른 사용자의 변경이 보이지 않으면 표시 기간을 이동하거나 페이지를 새로 고침합니다.
 
-Changes are not pushed to other open sessions in real time. Change the displayed period or refresh the page when another user's update is not visible.
+### 일정 삭제하기
 
-### Delete a schedule
+일정을 선택하고 오른쪽 상세 내용을 확인한 뒤 휴지통 아이콘을 사용합니다. 서버가 사용자 역할과 일정 소유권을 확인한 뒤 일정 전체를 삭제하거나 현재 대상자만 제외합니다.
 
-Select the schedule, review the right-side details, and use the trash icon. The server applies the ownership and role rules described above before deleting the event or removing the current assignee.
+![선택한 일정과 상세 패널의 휴지통 아이콘을 강조한 인턴핑 화면](/img/user-guide/ko/03-delete-schedule.png)
 
-![Annotated InternPing schedule details highlighting the selected event and trash icon](/img/user-guide/en/03-delete-schedule.png)
+*삭제 권한이 있을 때 일정 상세 패널에 휴지통 아이콘이 표시됩니다.*
 
-*The trash icon appears in the selected schedule's detail panel when deletion is allowed.*
+### 일정 수정하기
 
-### Edit a schedule
+캘린더 또는 승인 대기 목록에서 수정 가능한 일정을 선택한 뒤 상세 패널의 연필 아이콘을 사용해 입력창을 다시 엽니다.
 
-Select an editable schedule from the calendar or pending list, then use the pencil icon in the detail panel to reopen the event form.
+![승인 대기 일정과 상세 패널의 연필 아이콘을 강조한 인턴핑 화면](/img/user-guide/ko/04-edit-schedule.png)
 
-![Annotated InternPing schedule details highlighting a pending event and the pencil icon](/img/user-guide/en/04-edit-schedule.png)
+*수정 권한이 있을 때 연필 아이콘으로 일정 입력창을 다시 열 수 있습니다.*
 
-*The pencil icon opens the selected schedule for editing when the user has permission.*
+## 4. 일정 검토 및 승인하기
 
-## 4. Review and decide requests
+관리자 화면의 오른쪽 패널에는 승인 대기 및 보류 일정이 표시됩니다.
 
-The right-side panel shows pending and on-hold events to admins.
+1. 검토할 일정을 선택합니다.
+2. 일정 내용과 대상자의 기존 확정 일정을 확인합니다.
+3. 필요한 경우 처리 사유를 입력합니다.
+4. 승인, 보류 또는 반려를 선택합니다.
 
-1. Select the event to review.
-2. Check its details and any existing approved assignments for the selected interns.
-3. Enter an optional decision note.
-4. Select one of the available decisions.
-
-| Decision | Result |
+| 처리 | 결과 |
 | --- | --- |
-| Approve | Confirms the event on the team calendar |
-| Hold | Leaves the event waiting for additional details or coordination |
-| Reject | Declines the request |
+| 승인 | 팀 캘린더에서 확정 일정으로 처리됩니다. |
+| 보류 | 추가 정보나 조율을 기다리는 상태로 남습니다. |
+| 반려 | 투입 예약이 거절됩니다. |
 
-Creation, updates, decisions, and deletion are retained in the event history. A decision does not automatically send a Teams message or email.
+신청, 수정, 승인, 보류, 반려와 삭제 기록은 일정 이력에 남습니다. 처리 결과가 Teams 메시지나 이메일로 자동 발송되지는 않습니다.
 
-{/* SCREENSHOT: admin-approval-queue | Admin approval queue */}
-{/* SCREENSHOT: admin-decision-history | Decision controls and event history */}
+{/* SCREENSHOT: admin-approval-queue | 관리자 승인 대기 목록 */}
+{/* SCREENSHOT: admin-decision-history | 처리 버튼과 일정 이력 */}
 
-## 5. Upload Outlook events
+## 5. Outlook 일정 업로드하기
 
-The **Upload schedule** action is currently shown to interns. An intern's upload is always assigned to that intern. The server API also supports admin uploads for selected assignees, but the current admin interface does not expose an upload button.
+현재 화면에서 **일정 업로드** 버튼은 인턴에게 표시됩니다. 인턴이 업로드한 일정은 항상 본인에게 배정됩니다. 서버 API는 관리자가 선택한 대상자에게 업로드하는 기능도 지원하지만 현재 관리자 화면에는 업로드 버튼이 없습니다.
 
-1. Select the prepared Outlook `.sql` file.
-2. Review the number of detected events and the title-grouped preview.
-3. Check the default selection. Events organized by registered team members are selected, while externally organized events are initially excluded.
-4. Clear titles that should not be imported or reselect required external events.
-5. Start the upload and review the created, merged, duplicate, malformed, and rejected counts.
+1. 준비한 Outlook `.sql` 파일을 선택합니다.
+2. 찾은 일정 수와 제목별 미리보기를 확인합니다.
+3. 기본 선택 상태를 확인합니다. 등록된 팀원이 주최한 일정은 선택되고 외부 주최 일정은 처음에 제외됩니다.
+4. 가져오지 않을 제목을 해제하거나 필요한 외부 일정을 다시 선택합니다.
+5. 업로드를 실행하고 생성, 병합, 중복, 형식 오류와 제외 건수를 확인합니다.
 
-Each upload is limited to 4 MB and 1,000 events. If an event with the same normalized title, dates, and times already exists, InternPing adds missing assignees instead of creating another row. Uploaded SQL is never executed; the server extracts values only from supported `INSERT INTO events` statements and validates them before saving.
+한 번에 최대 4MB 또는 1,000건까지 처리합니다. 정규화한 제목·날짜·시간이 같은 일정이 이미 있으면 새 일정을 만들지 않고 빠진 대상자를 추가합니다. 업로드된 SQL은 실행하지 않으며 `INSERT INTO events` 값만 읽고 서버에서 검증한 뒤 저장합니다.
 
-:::warning The `requested_by` field
-Use the Outlook organizer's name or email in `requested_by`. A user GUID copied from another database cannot be matched to an InternPing user.
+:::warning `requested_by` 필드
+`requested_by`에는 Outlook 주최자의 이름이나 이메일을 사용합니다. 다른 데이터베이스에서 복사한 사용자 GUID는 인턴핑 사용자와 연결할 수 없습니다.
 :::
 
-{/* SCREENSHOT: outlook-upload-select | SQL file selected */}
-{/* SCREENSHOT: outlook-upload-preview | Title selection and import result */}
+{/* SCREENSHOT: outlook-upload-select | SQL 파일 선택 */}
+{/* SCREENSHOT: outlook-upload-preview | 제목 선택과 업로드 결과 */}
 
-## 6. Add an event to Outlook
+## 6. Outlook에 일정 추가하기
 
-1. Select the event in the calendar.
-2. Select **Add to Outlook (.ics)** in the details panel.
-3. Open the downloaded `.ics` file.
-4. Confirm the destination calendar in Outlook and save the event.
+1. 캘린더에서 일정을 선택합니다.
+2. 상세 패널의 **Outlook에 추가 (.ics)**를 선택합니다.
+3. 내려받은 `.ics` 파일을 엽니다.
+4. Outlook에서 저장할 캘린더를 확인한 뒤 저장합니다.
 
-The ICS file includes available title, description, location, status, organizer, and assignee details. This is a manual file export, not automatic or two-way Outlook synchronization.
+ICS 파일에는 제목, 설명, 장소, 상태, 주최자와 대상자 정보가 포함됩니다. 이 기능은 수동 파일 내보내기이며 Outlook 자동 또는 양방향 동기화가 아닙니다.
 
-![Annotated InternPing schedule details highlighting the Add to Outlook ICS download action](/img/user-guide/en/05-add-to-outlook.png)
+![일정 상세 패널의 Outlook에 추가 버튼을 강조한 인턴핑 화면](/img/user-guide/ko/05-add-to-outlook.png)
 
-*Select Add to Outlook to download the selected event as an ICS file.*
+*Outlook에 추가를 선택하면 현재 일정을 ICS 파일로 내려받습니다.*
 
-{/* SCREENSHOT: outlook-save-ics | ICS event opened in Outlook */}
+{/* SCREENSHOT: outlook-save-ics | Outlook에서 ICS 파일을 연 화면 */}
 
-## 7. Manage user roles
+## 7. 사용자 역할 관리하기
 
-1. Sign in as an admin and open **User management**.
-2. Choose Admin, Member, or Intern for the target user.
-3. Confirm that the updated role is displayed.
+1. 관리자 계정으로 **사용자 관리**를 엽니다.
+2. 대상 사용자에게 관리자, 팀원 또는 인턴 역할을 지정합니다.
+3. 변경된 역할이 표시되는지 확인합니다.
 
-The final admin cannot be demoted because the team would lose its approval capability. Accounts listed in the `ADMIN_EMAILS` environment variable also cannot have their admin role removed in the app.
+마지막 관리자는 팀의 승인 기능이 중단되지 않도록 강등할 수 없습니다. `ADMIN_EMAILS` 환경 변수에 지정된 계정도 앱 화면에서 관리자 권한을 제거할 수 없습니다.
 
-{/* SCREENSHOT: user-role-management | User management and role selector */}
+{/* SCREENSHOT: user-role-management | 사용자 관리와 역할 선택 */}
 
-## Status reference
+## 상태 알아보기
 
-| Status | Meaning | Next action |
+| 상태 | 의미 | 다음 행동 |
 | --- | --- | --- |
-| Pending | An admin has not made a decision | Wait for an admin review |
-| Approved | The assignment is confirmed | Use it as the team schedule or export it to Outlook |
-| On hold | Details or availability require coordination | Confirm the required information with an admin |
-| Rejected | The request was declined | Review the decision note and submit a replacement if needed |
+| 승인 대기 | 관리자가 아직 결정하지 않음 | 관리자 검토를 기다립니다. |
+| 확정 | 투입 일정이 승인됨 | 팀 일정으로 사용하거나 Outlook으로 내보냅니다. |
+| 보류 | 정보 또는 일정 조율이 필요함 | 관리자에게 필요한 내용을 확인합니다. |
+| 반려 | 투입 예약이 거절됨 | 처리 사유를 확인하고 필요하면 다시 신청합니다. |
 
-## Troubleshooting
+## 문제 해결
 
-- **An event is missing:** Check the current period, status filters, and assignee filter.
-- **The Edit action is missing:** Non-admin users cannot edit an approved event.
-- **The upload action is missing:** The current interface displays Outlook SQL upload only for intern accounts.
-- **The event did not appear automatically in Outlook:** Open the downloaded ICS file and save it manually.
-- **Another user's update is not visible:** Refresh the page because the app has no real-time synchronization.
-- **A user switcher appears in the header:** The server is running without Entra configuration in unauthenticated development mode. Do not use that mode in a hosted deployment.
+- **일정이 보이지 않음:** 표시 기간, 상태 필터와 대상자 필터를 확인합니다.
+- **수정 버튼이 없음:** 일반 사용자는 확정된 일정을 수정할 수 없습니다.
+- **업로드 버튼이 없음:** 현재 화면에서는 인턴 계정에만 Outlook SQL 업로드가 표시됩니다.
+- **Outlook에 자동 반영되지 않음:** 내려받은 ICS 파일을 열어 Outlook에 직접 저장합니다.
+- **다른 사용자의 변경이 보이지 않음:** 실시간 동기화가 없으므로 페이지를 새로 고침합니다.
+- **상단에 사용자 전환 메뉴가 표시됨:** Entra 설정이 없는 무인증 개발 모드입니다. 운영 서버에서 사용하면 안 됩니다.

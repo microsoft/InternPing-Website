@@ -10,8 +10,8 @@ const organizationName = process.env.GITHUB_REPOSITORY_OWNER ?? 'calendar-manage
 const projectName = process.env.GITHUB_REPOSITORY?.split('/')[1] ?? 'calendar-management-app';
 
 const config: Config = {
-  title: 'Calendar Management App',
-  tagline: 'Team event planning, approvals, and ICS export inside Microsoft Teams',
+  title: '인턴핑 사용 설명서',
+  tagline: 'Microsoft Teams에서 인턴 일정 확인, 투입 예약, 승인 및 Outlook 연동',
   favicon: 'img/mascot-walking.png',
 
   // Future flags, see https://docusaurus.io/docs/api/docusaurus-config#future
@@ -33,8 +33,8 @@ const config: Config = {
   // useful metadata like html lang. For example, if your site is Chinese, you
   // may want to replace "en" with "zh-Hans".
   i18n: {
-    defaultLocale: 'en',
-    locales: ['en'],
+    defaultLocale: 'ko',
+    locales: ['ko'],
   },
 
   presets: [
@@ -63,7 +63,7 @@ const config: Config = {
       {name: 'theme-color', content: '#0f6cbd'},
       {
         name: 'keywords',
-        content: 'Microsoft Teams, intern calendar, approvals, SQLite, Entra ID, Outlook, ICS',
+        content: 'Microsoft Teams, 인턴 일정, 투입 예약, 승인, Outlook, ICS, 인턴핑',
       },
     ],
     colorMode: {
@@ -72,44 +72,44 @@ const config: Config = {
       respectPrefersColorScheme: false,
     },
     navbar: {
-      title: 'InternPing',
+      title: '인턴핑',
       logo: {
         alt: 'InternPing',
         src: 'img/header-head.png',
       },
       items: [
-        {to: '/', label: 'Home', position: 'left', activeBaseRegex: '^/$'},
-        {to: '/docs/installation', label: 'Installation', position: 'left'},
-        {to: '/docs/user-guide', label: 'User Guide', position: 'left'},
-        {to: '/docs/features', label: 'Features', position: 'left'},
-        {to: '/docs/architecture', label: 'Architecture', position: 'left'},
+        {to: '/', label: '홈', position: 'left', activeBaseRegex: '^/$'},
+        {to: '/docs/installation', label: '설치', position: 'left'},
+        {to: '/docs/user-guide', label: '사용자 가이드', position: 'left'},
+        {to: '/docs/features', label: '기능', position: 'left'},
+        {to: '/docs/architecture', label: '시스템 구조', position: 'left'},
       ],
     },
     footer: {
       style: 'dark',
       links: [
         {
-          title: 'Product',
+          title: '제품',
           items: [
-            {label: 'Features', to: '/docs/features'},
-            {label: 'Architecture', to: '/docs/architecture'},
-            {label: 'User Guide', to: '/docs/user-guide'},
+            {label: '주요 기능', to: '/docs/features'},
+            {label: '시스템 구조', to: '/docs/architecture'},
+            {label: '사용자 가이드', to: '/docs/user-guide'},
           ],
         },
         {
-          title: 'Get started',
+          title: '시작하기',
           items: [
-            {label: 'Installation Guide', to: '/docs/installation'},
+            {label: '설치 및 배포 가이드', to: '/docs/installation'},
           ],
         },
         {
-          title: 'Project',
+          title: '프로젝트',
           items: [
             {label: 'Microsoft Teams', href: 'https://www.microsoft.com/microsoft-teams/'},
           ],
         },
       ],
-      copyright: `© ${new Date().getFullYear()} Calendar Management App. Built by interns for Microsoft Teams.`,
+      copyright: `© ${new Date().getFullYear()} 인턴핑. Microsoft Teams를 위한 인턴 일정 관리 앱입니다.`,
     },
     prism: {
       theme: prismThemes.github,

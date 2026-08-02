@@ -1,88 +1,68 @@
 ---
 id: installation
-title: Installation Guide
-description: Build, run, configure, and package the Intern Calendar Teams tab.
+title: 설치 및 배포 가이드
+description: 인턴핑을 로컬에서 실행하고 Microsoft Teams와 Azure에 배포하는 방법입니다.
 sidebar_position: 3
 ---
 
-# Installation Guide
+# 설치 및 배포 가이드
 
-The application source lives in the upstream repository's `intern-calendar/` directory. It builds a Vite React frontend and a bundled Node/Express backend.
+인턴핑 애플리케이션은 원본 저장소의 `intern-calendar/` 폴더에 있습니다. React 탭과 Node.js API를 함께 빌드하고 한 서버에서 제공합니다.
 
-## Prerequisites
+## 준비 사항
 
-- Node.js 24, required for the stable built-in `node:sqlite` `DatabaseSync` API
-- npm and Git
-- A Microsoft 365 tenant for Teams installation
-- Microsoft 365 Agents Toolkit for provision, deploy, and publish workflows
-- Permission to create or use an Entra app registration for production authentication
-- An HTTPS host for production
+- Node.js 24: 안정 버전의 내장 `node:sqlite` `DatabaseSync` API에 필요합니다.
+- npm과 Git
+- Microsoft 365 개발 또는 데모 테넌트
+- Microsoft 365 Agents Toolkit VS Code 확장 또는 `atk` CLI
+- Teams 사용자 지정 앱 업로드 권한
+- Entra 앱 생성 권한과 Azure 배포 시 Azure 구독
 
-## 1. Get the application
+## 1. 소스 코드 준비하기
 
 ```powershell
 git clone https://github.com/kimsunki12/Microsoft_Intern_Project.git
 cd Microsoft_Intern_Project\intern-calendar
 npm install
+node --version
 ```
 
-## 2. Build the frontend and server
+Node 버전이 `v24`가 아니면 버전을 맞춘 뒤 의존성을 다시 설치합니다.
+
+## 2. 브라우저에서 실행하기
 
 ```powershell
 npm run build
-```
-
-The build uses Vite for the React tab and `tsup` for the Node backend.
-
-## 3. Run locally
-
-```powershell
 $env:PORT = "3978"
 node .
 ```
 
-Open `http://localhost:3978/tabs/home`. When Entra variables are not set, the server starts in development authentication mode and the UI supports local user switching.
+`http://localhost:3978/tabs/home`을 엽니다. Entra 환경 변수가 없으면 **개발 모드**로 실행되어 사용자 역할을 전환할 수 있습니다.
 
-The first run creates the SQLite database and seeds the static Korea ABS STU team roster. By default, data is stored in `data/intern-calendar.db`.
+:::danger 개발 모드는 로컬 전용입니다
+개발 모드는 사용자를 인증하지 않습니다. 인터넷이나 사내 네트워크에 공개된 서버에서는 반드시 Entra 인증을 설정합니다.
+:::
 
-## 4. Runtime configuration
+개발 중 자동 재빌드가 필요하면 `npm run dev`를 사용합니다. 첫 실행 시 `data/intern-calendar.db`가 생성되고 코드에 정의된 팀 명단이 사용자 테이블에 반영됩니다.
 
-| Variable | Default | Purpose |
+## 3. 주요 환경 변수
+
+| 변수 | 기본값 | 용도 |
 | --- | --- | --- |
-| `PORT` | `3978` | Express server port |
-| `ENTRA_TENANT_ID` | none | Entra tenant used to validate production tokens |
-| `ENTRA_CLIENT_ID` | none | Entra application/client ID and token audience |
-| `ENTRA_AUDIENCE` | client ID defaults | Accepted token audiences, separated by commas |
-| `ENTRA_ALLOWED_TENANTS` | home tenant | Tenant IDs allowed to sign in, separated by commas |
-| `ADMIN_EMAILS` | none | Email addresses that must always receive the admin role |
-| `DB_FILE` | `data/intern-calendar.db` | SQLite database file |
-| `DATA_DIR` | `./data` | Runtime data directory |
-| `DEFAULT_ROLE` | `member` | Role assigned to a newly recognized user |
-| `CALENDAR_IANA_TIME_ZONE` | `Asia/Seoul` | IANA time zone used for timed ICS exports |
+| `PORT` | `3978` | 애플리케이션 서버 포트 |
+| `ENTRA_TENANT_ID` | 없음 | 홈 Entra 테넌트 ID |
+| `ENTRA_CLIENT_ID` | 없음 | Entra 앱 클라이언트 ID |
+| `ENTRA_AUDIENCE` | 클라이언트 ID 기반 | 허용할 토큰 audience 목록 |
+| `ENTRA_ALLOWED_TENANTS` | 홈 테넌트 | 로그인을 허용할 테넌트 ID 목록 |
+| `ADMIN_EMAILS` | 없음 | 항상 관리자 권한을 가질 이메일 목록 |
+| `DEFAULT_ROLE` | `member` | 처음 로그인한 사용자의 기본 역할 |
+| `DATA_DIR` | 로컬 `./data`, Azure `/home/data` | 데이터 저장 폴더 |
+| `DB_FILE` | `<DATA_DIR>/intern-calendar.db` | SQLite 파일 경로 |
+| `CALENDAR_IANA_TIME_ZONE` | `Asia/Seoul` | ICS 시간 변환에 사용할 IANA 시간대 |
 
-Example production shell configuration:
+## 4. Teams에서 로컬 실행하기
 
-```powershell
-$env:PORT = "3978"
-$env:ENTRA_TENANT_ID = "<tenant-id>"
-$env:ENTRA_CLIENT_ID = "<application-id>"
-$env:ADMIN_EMAILS = "admin@contoso.com"
-$env:DB_FILE = "D:\intern-calendar-data\intern-calendar.db"
-node .
-```
-
-Do not deploy with development authentication enabled. Protect the database directory and back it up outside the application process.
-
-## 5. Provision the Teams app
-
-The repository includes these deployment inputs:
-
-- `appPackage/manifest.json`: Teams app and static tab definition
-- `aad.manifest.json`: Entra application definition and exposed scope
-- `m365agents.yml`: provision, deploy, and publish lifecycle
-- `m365agents.local.yml`: local development overrides
-
-For local Teams testing, configure `ADMIN_EMAILS` in `env/.env.local`, then run:
+`env/.env.local`의 `ADMIN_EMAILS`에 승인 담당자 이메일을 입력한 뒤 다음 명령을 실행합니다.
 
 ```powershell
 atk auth login m365
@@ -91,29 +71,46 @@ atk deploy --env local -i false
 npm run dev:teamsfx
 ```
 
-Sideload `appPackage/build/internping.zip` in Teams. The deployed host must serve the tab at `/tabs/home`, be listed as a valid domain in the Teams manifest, and use HTTPS.
+생성된 `appPackage/build/internping.zip`을 Teams에 사용자 지정 앱으로 업로드합니다. 탭은 `https://localhost:3978/tabs/home`을 열고 Teams SSO 토큰을 서버에 전달합니다.
 
-For Azure, run `atk provision --env dev` followed by `atk deploy --env dev`. The included infrastructure creates a Linux B1 App Service using Node 24 LTS, HTTPS, Always On, one worker, and persistent storage at `/home/data`.
-
-## 6. Import legacy Outlook data
-
-Use the UI import dialog or the migration script to inspect an Outlook SQL export:
+## 5. Azure에 배포하기
 
 ```powershell
-node scripts/import-outlook-sql.mjs "C:\path\to\events.sql" --dry-run
-node scripts/import-outlook-sql.mjs "C:\path\to\events.sql"
+atk provision --env dev
+atk deploy --env dev
+atk publish --env dev
 ```
 
-Add `--reset` only when previously imported data should be removed and recreated. The parser extracts supported `INSERT` values; it does not execute the uploaded SQL file directly. The in-app upload accepts up to 4 MB and 1,000 events per request.
+`publish`는 조직 전체 배포 승인이 필요할 때만 실행합니다.
 
-## 7. Verify the deployment
+| 리소스 | 설정 |
+| --- | --- |
+| App Service Plan | Linux B1 |
+| App Service | Node 24 LTS, HTTPS 전용, Always On, 인스턴스 1개 |
+| Entra 앱 | Teams SSO용 `access_as_user` 범위 |
+| Teams 앱 | 배포된 탭 주소와 허용 도메인 |
 
-1. Open the static tab in Teams and confirm Entra authentication succeeds.
-2. Create an event as a member and verify that it is pending.
-3. Approve, hold, and reject test events as an administrator.
-4. Change a test user's role and verify that the final administrator cannot be removed.
-5. Assign an intern to overlapping approved events and confirm the conflict warning.
-6. Download an all-day and a timed ICS file and open both in Outlook.
-7. Restart the service and verify that SQLite data persists.
+SQLite 파일을 공유할 수 없으므로 App Service 인스턴스는 1개로 유지합니다. 데이터는 재배포 후에도 유지되는 `/home/data`에 저장됩니다.
 
-The repository does not currently define an automated test command, so these runtime checks are important before tenant publication.
+## 6. 배포 확인하기
+
+1. Teams에서 본인 이름과 역할이 표시되는지 확인합니다.
+2. 일반 사용자로 투입 예약을 만들고 승인 대기 상태인지 확인합니다.
+3. 관리자로 승인·보류·반려를 시험합니다.
+4. 마지막 관리자를 강등할 수 없는지 확인합니다.
+5. 겹치는 확정 일정으로 충돌 안내를 확인합니다.
+6. Outlook SQL 미리보기와 업로드 결과를 확인합니다.
+7. 종일 및 시간 일정의 ICS를 Outlook에서 엽니다.
+8. 서버 재시작 후 데이터가 유지되는지 확인합니다.
+9. 데스크톱과 640px 이하 모바일 화면에서 일정 목록과 상세 패널을 확인합니다.
+
+## 자주 발생하는 문제
+
+| 증상 | 확인할 내용 |
+| --- | --- |
+| `node:sqlite` 모듈 오류 | Node.js가 24인지 확인합니다. |
+| Teams에서 빈 화면 | HTTPS 서버, 인증서, 탭 URL과 포트 3978을 확인합니다. |
+| API가 401을 반환함 | SSO 토큰, tenant, audience와 Entra 앱 ID를 확인합니다. |
+| 관리 메뉴가 없음 | 로그인 이메일과 `ADMIN_EMAILS`가 일치하는지 확인합니다. |
+| 재배포 후 데이터가 사라짐 | Azure `DATA_DIR`이 `/home/data`인지 확인합니다. |
+| 앱 업로드 메뉴가 없음 | Teams의 사용자 지정 앱 업로드 정책을 확인합니다. |
