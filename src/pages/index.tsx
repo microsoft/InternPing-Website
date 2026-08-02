@@ -4,14 +4,10 @@ import Layout from '@theme/Layout';
 import Heading from '@theme/Heading';
 import {
   ArrowRight,
-  CalendarCheck,
   CalendarDays,
   Check,
-  Clock3,
   Download,
-  LayoutDashboard,
   ShieldCheck,
-  Users,
 } from 'lucide-react';
 
 import styles from './index.module.css';
@@ -42,22 +38,8 @@ export default function Home(): ReactNode {
               </div>
               <div className={styles.proof}><span><Check size={16} /> 세 가지 역할</span><span><Check size={16} /> SQLite 저장</span><span><Check size={16} /> Entra 인증</span></div>
             </div>
-            <div className={styles.productVisual} aria-label="인턴 일정 대시보드 미리보기">
-              <div className={styles.appRail}><div className={styles.teamsMark}>T</div><Users size={20} /><CalendarCheck size={20} /><LayoutDashboard size={20} /></div>
-              <div className={styles.dashboard}>
-                <div className={styles.dashboardTop}><div><small>인턴핑</small><strong>팀 일정</strong></div><span className={styles.avatar}>AM</span></div>
-                <div className={styles.metrics}>
-                  <div><Clock3 size={18} /><small>승인 대기</small><strong>4</strong></div>
-                  <div><CalendarCheck size={18} /><small>확정</small><strong>18</strong></div>
-                  <div><Clock3 size={18} /><small>보류</small><strong>2</strong></div>
-                </div>
-                <div className={styles.requestList}>
-                  <div className={styles.listHeader}><strong>예정된 일정</strong><span>이번 주</span></div>
-                  <div className={styles.request}><span className={styles.date}>05<small>8월</small></span><div><strong>디자인 검토</strong><small>10:00 - 11:00 · 회의실 2A</small></div><b className={styles.approved}>확정</b></div>
-                  <div className={styles.request}><span className={styles.date}>07<small>8월</small></span><div><strong>인턴 데모 데이</strong><small>14:00 - 15:30 · Teams 회의</small></div><b className={styles.pending}>대기</b></div>
-                  <div className={styles.request}><span className={styles.date}>11<small>8월</small></span><div><strong>프로젝트 회고</strong><small>16:00 - 17:00 · 회의실 4C</small></div><b className={styles.approved}>확정</b></div>
-                </div>
-              </div>
+            <div className={styles.productVisual}>
+              <img src="img/internping-main.png" alt="Microsoft Teams에서 실행 중인 인턴핑 캘린더" />
             </div>
             <p className={styles.visualCaption}>인턴핑 · 팀 일정</p>
           </div>
