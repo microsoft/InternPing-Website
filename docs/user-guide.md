@@ -23,15 +23,7 @@ Choose the interface you use. The selection stays in the page URL so you can sha
 <Tabs className="guide-platform-tabs" groupId="guide-platform" queryString="platform">
 <TabItem value="pc" label="PC" default>
 
-## Workflow at a glance
-
-Use one workspace to review availability, filter schedules, create assignments, export events to Outlook, and manage existing schedules.
-
-![Annotated overview of the complete InternPing workflow, including calendar views, filters, assignment creation, Outlook export, and event management](/img/user-guide/en/06-workflow.png)
-
-*The complete workflow from calendar review to schedule management.*
-
-## 1. Review the calendar
+## 0. Main screen overview
 
 The app opens in **Week** view by default. Each row represents an intern and each column represents a date, making open days and existing assignments easy to compare.
 
@@ -47,25 +39,7 @@ At widths of 640px or less, the calendar grid changes to a date-based agenda. Ev
 
 *Main screen: calendar, filtering controls, pending requests, and event details.*
 
-### Filter by status
-
-Select one or more status buttons to limit the calendar to approved, pending, on-hold, or rejected schedules. Select an active status again to remove it from the filter.
-
-![Annotated InternPing week view highlighting the approved, pending, on-hold, and rejected status filters](/img/user-guide/en/02-1-filter-status.png)
-
-*Status filters narrow the calendar to the selected workflow states.*
-
-### Filter by intern
-
-Open the intern selector and choose either all interns or one person. The calendar updates to show only schedules assigned to that selection.
-
-![Annotated InternPing week view highlighting the intern filter dropdown](/img/user-guide/en/02-2-filter-intern.png)
-
-*The intern filter focuses the calendar on one assignee.*
-
-{/* SCREENSHOT: calendar-month-and-mobile | Month view or mobile agenda */}
-
-## 2. Submit an assignment request
+## 1. How to add a schedule
 
 1. Select **Assignment request** in the upper-right corner. Admins see **Create event** in the same location.
 2. Enter the event title.
@@ -86,7 +60,25 @@ The app warns when an assignee already has an overlapping approved event. An all
 
 {/* SCREENSHOT: event-conflict-warning | Overlapping assignment warning */}
 
-## 3. Edit or delete an event
+## 2-1. Filter by status
+
+Select one or more status buttons to limit the calendar to approved, pending, on-hold, or rejected schedules. Select an active status again to remove it from the filter.
+
+![Annotated InternPing week view highlighting the approved, pending, on-hold, and rejected status filters](/img/user-guide/en/02-1-filter-status.png)
+
+*Status filters narrow the calendar to the selected workflow states.*
+
+## 2-2. Filter by intern
+
+Open the intern selector and choose either all interns or one person. The calendar updates to show only schedules assigned to that selection.
+
+![Annotated InternPing week view highlighting the intern filter dropdown](/img/user-guide/en/02-2-filter-intern.png)
+
+*The intern filter focuses the calendar on one assignee.*
+
+{/* SCREENSHOT: calendar-month-and-mobile | Month view or mobile agenda */}
+
+## Schedule management
 
 1. Select an event in the calendar.
 2. Select **Edit** or **Delete** in the details panel.
@@ -96,7 +88,7 @@ Admins can edit or delete any event. A non-admin can edit an event only when the
 
 Changes are not pushed to other open sessions in real time. Change the displayed period or refresh the page when another user's update is not visible.
 
-### Delete a schedule
+## 3. How to delete a schedule
 
 Select the schedule, review the right-side details, and use the trash icon. The server applies the ownership and role rules described above before deleting the event or removing the current assignee.
 
@@ -104,7 +96,7 @@ Select the schedule, review the right-side details, and use the trash icon. The 
 
 *The trash icon appears in the selected schedule's detail panel when deletion is allowed.*
 
-### Edit a schedule
+## 4. How to edit a schedule
 
 Select an editable schedule from the calendar or pending list, then use the pencil icon in the detail panel to reopen the event form.
 
@@ -112,7 +104,9 @@ Select an editable schedule from the calendar or pending list, then use the penc
 
 *The pencil icon opens the selected schedule for editing when the user has permission.*
 
-## 4. Review and decide requests
+## Additional PC features
+
+### Review and decide requests
 
 The right-side panel shows pending and on-hold events to admins.
 
@@ -132,7 +126,7 @@ Creation, updates, decisions, and deletion are retained in the event history. A 
 {/* SCREENSHOT: admin-approval-queue | Admin approval queue */}
 {/* SCREENSHOT: admin-decision-history | Decision controls and event history */}
 
-## 5. Upload Outlook events
+### Upload Outlook events
 
 The **Upload schedule** action is currently shown to interns. An intern's upload is always assigned to that intern. The server API also supports admin uploads for selected assignees, but the current admin interface does not expose an upload button.
 
@@ -151,7 +145,7 @@ Use the Outlook organizer's name or email in `requested_by`. A user GUID copied 
 {/* SCREENSHOT: outlook-upload-select | SQL file selected */}
 {/* SCREENSHOT: outlook-upload-preview | Title selection and import result */}
 
-## 6. Add an event to Outlook
+## 5. How to add a schedule to Outlook
 
 1. Select the event in the calendar.
 2. Select **Add to Outlook (.ics)** in the details panel.
@@ -166,7 +160,17 @@ The ICS file includes available title, description, location, status, organizer,
 
 {/* SCREENSHOT: outlook-save-ics | ICS event opened in Outlook */}
 
-## 7. Manage user roles
+## 6. End-to-end workflow
+
+Use one workspace to review availability, filter schedules, create assignments, export events to Outlook, and manage existing schedules.
+
+![Annotated overview of the complete InternPing workflow, including calendar views, filters, assignment creation, Outlook export, and event management](/img/user-guide/en/06-workflow.png)
+
+*The complete workflow from calendar review to schedule management.*
+
+## Administration
+
+### Manage user roles
 
 1. Sign in as an admin and open **User management**.
 2. Choose Admin, Member, or Intern for the target user.
@@ -197,15 +201,7 @@ The final admin cannot be demoted because the team would lose its approval capab
 </TabItem>
 <TabItem value="mobile" label="Mobile">
 
-## Mobile workflow at a glance
-
-Open InternPing from Microsoft Teams mobile to review the weekly agenda, filter schedules, submit assignment requests, and manage selected events.
-
-![Annotated mobile overview of the complete InternPing workflow](/img/user-guide/en/mobile/06-workflow.png)
-
-*The complete mobile workflow from schedule review to event management.*
-
-## 1. Review schedules on mobile
+## 0. Mobile main screen overview
 
 The mobile layout presents schedules as date-based cards instead of a wide calendar grid.
 
@@ -219,23 +215,7 @@ The mobile layout presents schedules as date-based cards instead of a wide calen
 
 *The mobile main screen keeps the weekly agenda and primary controls within reach.*
 
-### Filter by status on mobile
-
-Tap **Approved**, **Pending**, **On hold**, or **Rejected** to include or exclude that state. Multiple states can be active together.
-
-![Annotated mobile status filter controls](/img/user-guide/en/mobile/02-1-filter-status.png)
-
-*Status buttons narrow the mobile agenda to the selected workflow states.*
-
-### Filter by intern on mobile
-
-Open the intern selector and choose all interns or one person. The agenda immediately updates to that assignee.
-
-![Annotated mobile intern filter](/img/user-guide/en/mobile/02-2-filter-intern.png)
-
-*Use the intern selector when you need to focus on one person's availability.*
-
-## 2. Submit an assignment request on mobile
+## 1. How to add a schedule on mobile
 
 1. Tap **+ Assignment request** in the header.
 2. Enter the title and optional description and location.
@@ -249,11 +229,27 @@ Non-admin requests start as **Pending**. Admin-created events are immediately **
 
 *Complete the form from top to bottom, then submit the assignment request.*
 
-## 3. Edit or delete a schedule on mobile
+## 2-1. Filter by status on mobile
+
+Tap **Approved**, **Pending**, **On hold**, or **Rejected** to include or exclude that state. Multiple states can be active together.
+
+![Annotated mobile status filter controls](/img/user-guide/en/mobile/02-1-filter-status.png)
+
+*Status buttons narrow the mobile agenda to the selected workflow states.*
+
+## 2-2. Filter by intern on mobile
+
+Open the intern selector and choose all interns or one person. The agenda immediately updates to that assignee.
+
+![Annotated mobile intern filter](/img/user-guide/en/mobile/02-2-filter-intern.png)
+
+*Use the intern selector when you need to focus on one person's availability.*
+
+## Mobile schedule management
 
 Tap a schedule card to open the bottom-sheet details. The available actions depend on your role, ownership, and the event state.
 
-### Delete a schedule
+## 3. How to delete a schedule on mobile
 
 Tap the trash icon in the details sheet and confirm the deletion. An imported event with multiple assignees removes only the current assignee when that rule applies.
 
@@ -261,7 +257,7 @@ Tap the trash icon in the details sheet and confirm the deletion. An imported ev
 
 *The trash icon is shown only when the signed-in user can remove the schedule.*
 
-### Edit a schedule
+## 4. How to edit a schedule on mobile
 
 Tap the pencil icon in the details sheet, update the fields, and save. Non-admin users can edit only their own requests before approval.
 
@@ -269,15 +265,17 @@ Tap the pencil icon in the details sheet, update the fields, and save. Non-admin
 
 *The pencil icon reopens an editable schedule in the mobile form.*
 
-## 4. Review requests on mobile
+## Additional mobile features
+
+### Review requests on mobile
 
 Admins can use the pending count to identify requests that need attention. Open a pending or on-hold event, review its details and assignees, then approve, hold, or reject it. Decision history and role rules are the same as on PC.
 
-## 5. Upload Outlook events on mobile
+### Upload Outlook events on mobile
 
 Interns can tap the upload icon in the header and select a prepared Outlook `.sql` file from the device. Review the detected titles and selection before importing. The 4 MB and 1,000-event limits also apply on mobile.
 
-## 6. Add a schedule to Outlook on mobile
+## 5. How to add a schedule to Outlook on mobile
 
 1. Tap a schedule card.
 2. In the details sheet, tap **Add to Outlook (.ics)**.
@@ -287,6 +285,14 @@ Interns can tap the upload icon in the header and select a prepared Outlook `.sq
 ![Annotated mobile Add to Outlook action](/img/user-guide/en/mobile/05-add-to-outlook.png)
 
 *The ICS action downloads a calendar file; it does not create two-way synchronization.*
+
+## 6. Mobile end-to-end workflow
+
+Open InternPing from Microsoft Teams mobile to review the weekly agenda, filter schedules, submit assignment requests, and manage selected events.
+
+![Annotated mobile overview of the complete InternPing workflow](/img/user-guide/en/mobile/06-workflow.png)
+
+*The complete mobile workflow from schedule review to event management.*
 
 ## Mobile status reference
 
