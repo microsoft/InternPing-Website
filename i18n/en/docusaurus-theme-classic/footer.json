@@ -1,0 +1,26 @@
+{
+  "link.item.label.설치": {
+    "message": "Install",
+    "description": "The label of footer link with label=설치 linking to /docs/installation"
+  },
+  "link.item.label.사용자 가이드": {
+    "message": "User guide",
+    "description": "The label of footer link with label=사용자 가이드 linking to /docs/user-guide"
+  },
+  "link.item.label.주요 기능": {
+    "message": "Features",
+    "description": "The label of footer link with label=주요 기능 linking to /docs/features"
+  },
+  "link.item.label.시스템 구조": {
+    "message": "Architecture",
+    "description": "The label of footer link with label=시스템 구조 linking to /docs/architecture"
+  },
+  "link.item.label.Microsoft Teams": {
+    "message": "Microsoft Teams",
+    "description": "The label of footer link with label=Microsoft Teams linking to https://www.microsoft.com/microsoft-teams/"
+  },
+  "copyright": {
+    "message": "© 2026 InternPing. An intern scheduling app for Microsoft Teams.",
+    "description": "The footer copyright"
+  }
+}

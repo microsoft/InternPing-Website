@@ -9,9 +9,28 @@ const baseUrl = process.env.BASE_URL ?? '/';
 const organizationName = process.env.GITHUB_REPOSITORY_OWNER ?? 'calendar-management-app';
 const projectName = process.env.GITHUB_REPOSITORY?.split('/')[1] ?? 'calendar-management-app';
 
+// title과 tagline은 번역 파일로 추출되지 않아 로케일별로 직접 골라야 합니다.
+const currentLocale = process.env.DOCUSAURUS_CURRENT_LOCALE ?? 'ko';
+const siteText = {
+  ko: {
+    title: '인턴핑 사용 설명서',
+    tagline: 'Microsoft Teams에서 인턴 일정 확인, 투입 예약, 승인 및 Outlook 연동',
+    description:
+      '인턴핑은 Microsoft Teams에서 인턴 일정을 확인하고 투입을 예약하며 관리자가 승인하는 캘린더 앱입니다.',
+    keywords: ['인턴핑', 'InternPing', 'Microsoft Teams', '인턴 일정 관리', '투입 예약', 'Outlook 연동'],
+  },
+  en: {
+    title: 'InternPing docs',
+    tagline: 'Check intern schedules, book assignments, approve them, and connect Outlook in Microsoft Teams',
+    description:
+      'InternPing is a Microsoft Teams calendar app for checking intern schedules, booking assignments, and approving them as an admin.',
+    keywords: ['InternPing', 'Microsoft Teams', 'intern scheduling', 'assignment booking', 'Outlook integration'],
+  },
+}[currentLocale === 'en' ? 'en' : 'ko'];
+
 const config: Config = {
-  title: '인턴핑 사용 설명서',
-  tagline: 'Microsoft Teams에서 인턴 일정 확인, 투입 예약, 승인 및 Outlook 연동',
+  title: siteText.title,
+  tagline: siteText.tagline,
   favicon: 'img/mascot-walking.png',
 
   // Future flags, see https://docusaurus.io/docs/api/docusaurus-config#future
@@ -34,7 +53,11 @@ const config: Config = {
   // may want to replace "en" with "zh-Hans".
   i18n: {
     defaultLocale: 'ko',
-    locales: ['ko'],
+    locales: ['ko', 'en'],
+    localeConfigs: {
+      ko: {label: '한국어', htmlLang: 'ko-KR'},
+      en: {label: 'English', htmlLang: 'en-US'},
+    },
   },
 
   presets: [
@@ -61,10 +84,8 @@ const config: Config = {
   themeConfig: {
     metadata: [
       {name: 'theme-color', content: '#0f6cbd'},
-      {
-        name: 'keywords',
-        content: 'Microsoft Teams, 인턴 일정, 투입 예약, 승인, Outlook, ICS, 인턴핑',
-      },
+      {name: 'description', content: siteText.description},
+      {name: 'keywords', content: siteText.keywords.join(', ')},
     ],
     colorMode: {
       defaultMode: 'light',
@@ -78,6 +99,11 @@ const config: Config = {
         src: 'img/header-head.png',
       },
       items: [
+        {
+          type: 'localeDropdown',
+          position: 'right',
+          className: 'navbar-locale',
+        },
         {
           to: '/docs/installation',
           label: '설치',
