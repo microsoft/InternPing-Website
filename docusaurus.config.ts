@@ -78,36 +78,28 @@ const config: Config = {
         src: 'img/header-head.png',
       },
       items: [
-        {to: '/', label: '홈', position: 'left', activeBaseRegex: '^/$'},
-        {to: '/docs/installation', label: '설치', position: 'left'},
-        {to: '/docs/user-guide', label: '사용자 가이드', position: 'left'},
-        {to: '/docs/features', label: '기능', position: 'left'},
-        {to: '/docs/architecture', label: '시스템 구조', position: 'left'},
+        {
+          to: '/docs/installation',
+          label: '설치',
+          position: 'right',
+          className: 'navbar-cta navbar-cta--secondary',
+        },
+        {
+          to: '/docs/user-guide',
+          label: '사용자 가이드',
+          position: 'right',
+          className: 'navbar-cta navbar-cta--primary',
+        },
       ],
     },
     footer: {
-      style: 'dark',
+      style: 'light',
       links: [
-        {
-          title: '제품',
-          items: [
-            {label: '주요 기능', to: '/docs/features'},
-            {label: '시스템 구조', to: '/docs/architecture'},
-            {label: '사용자 가이드', to: '/docs/user-guide'},
-          ],
-        },
-        {
-          title: '시작하기',
-          items: [
-            {label: '설치 및 배포 가이드', to: '/docs/installation'},
-          ],
-        },
-        {
-          title: '프로젝트',
-          items: [
-            {label: 'Microsoft Teams', href: 'https://www.microsoft.com/microsoft-teams/'},
-          ],
-        },
+        {label: '설치', to: '/docs/installation'},
+        {label: '사용자 가이드', to: '/docs/user-guide'},
+        {label: '주요 기능', to: '/docs/features'},
+        {label: '시스템 구조', to: '/docs/architecture'},
+        {label: 'Microsoft Teams', href: 'https://www.microsoft.com/microsoft-teams/'},
       ],
       copyright: `© ${new Date().getFullYear()} 인턴핑. Microsoft Teams를 위한 인턴 일정 관리 앱입니다.`,
     },
