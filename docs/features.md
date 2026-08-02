@@ -42,7 +42,8 @@ The administrator side panel lists events that need attention. An administrator 
 | --- | :---: | :---: | :---: |
 | View the shared calendar | Yes | Yes | Yes |
 | Be assigned to an event | Yes | Yes | Yes |
-| Create an event | No | Yes | Yes |
+| Create an event | Yes | Yes | Yes |
+| Upload Outlook SQL events | Own calendar | No | API only; selected users |
 | Approve, hold, or reject | No | No | Yes |
 | Change user roles | No | No | Yes |
 
@@ -54,11 +55,13 @@ Administrators can review the seeded team roster and change user roles. The back
 
 ## Outlook SQL import
 
-The import workflow accepts SQL `INSERT` statements exported from the previous Outlook-oriented data model. The parser reads the statements as data rather than executing the uploaded SQL, validates categories and statuses, and avoids duplicate calendar entries. A CLI migration script also supports dry-run and reset modes.
+The import workflow is shown in the UI to interns for their own calendar. The API also permits administrators to import for selected users, although the current admin interface does not expose an upload button. It accepts SQL `INSERT` statements exported from the previous Outlook-oriented data model. The parser reads the statements as data rather than executing the uploaded SQL, validates categories and statuses, and limits each upload to 4 MB and 1,000 events.
+
+The preview groups events by title. Internal organizers are selected by default and external organizers are initially excluded. Events with the same ID are skipped; events with the same normalized title, dates, and times are merged by adding assignees instead of creating duplicate rows. A CLI migration script also supports dry-run and reset modes.
 
 ## ICS export
 
-Each event can be downloaded as an iCalendar (`.ics`) file and opened in Outlook or another compatible calendar client. All-day events use date values; timed events are converted to UTC timestamps. The file can include the title, description, location, and organizer.
+Each authenticated user can download an event as an iCalendar (`.ics`) file and open it in Outlook or another compatible calendar client. All-day events use date values; timed events are converted to UTC using `Asia/Seoul` by default. The file can include the title, description, location, status, organizer, and assignees.
 
 The current application does **not** send email or automatically synchronize Outlook calendars. Export is a user-initiated download.
 

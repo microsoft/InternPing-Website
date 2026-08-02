@@ -11,7 +11,7 @@ The application source lives in the upstream repository's `intern-calendar/` dir
 
 ## Prerequisites
 
-- Node.js 22 or later, required for the built-in `node:sqlite` `DatabaseSync` API
+- Node.js 24, required for the stable built-in `node:sqlite` `DatabaseSync` API
 - npm and Git
 - A Microsoft 365 tenant for Teams installation
 - Microsoft 365 Agents Toolkit for provision, deploy, and publish workflows
@@ -52,9 +52,13 @@ The first run creates the SQLite database and seeds the static Korea ABS STU tea
 | `PORT` | `3978` | Express server port |
 | `ENTRA_TENANT_ID` | none | Entra tenant used to validate production tokens |
 | `ENTRA_CLIENT_ID` | none | Entra application/client ID and token audience |
+| `ENTRA_AUDIENCE` | client ID defaults | Accepted token audiences, separated by commas |
+| `ENTRA_ALLOWED_TENANTS` | home tenant | Tenant IDs allowed to sign in, separated by commas |
+| `ADMIN_EMAILS` | none | Email addresses that must always receive the admin role |
 | `DB_FILE` | `data/intern-calendar.db` | SQLite database file |
 | `DATA_DIR` | `./data` | Runtime data directory |
 | `DEFAULT_ROLE` | `member` | Role assigned to a newly recognized user |
+| `CALENDAR_IANA_TIME_ZONE` | `Asia/Seoul` | IANA time zone used for timed ICS exports |
 
 Example production shell configuration:
 
@@ -62,6 +66,7 @@ Example production shell configuration:
 $env:PORT = "3978"
 $env:ENTRA_TENANT_ID = "<tenant-id>"
 $env:ENTRA_CLIENT_ID = "<application-id>"
+$env:ADMIN_EMAILS = "admin@contoso.com"
 $env:DB_FILE = "D:\intern-calendar-data\intern-calendar.db"
 node .
 ```
@@ -77,7 +82,18 @@ The repository includes these deployment inputs:
 - `m365agents.yml`: provision, deploy, and publish lifecycle
 - `m365agents.local.yml`: local development overrides
 
-Use Microsoft 365 Agents Toolkit to run the provision and deploy lifecycle for the target tenant. The deployed host must serve the tab at `/tabs/home`, be listed as a valid domain in the Teams manifest, and use HTTPS.
+For local Teams testing, configure `ADMIN_EMAILS` in `env/.env.local`, then run:
+
+```powershell
+atk auth login m365
+atk provision --env local -i false
+atk deploy --env local -i false
+npm run dev:teamsfx
+```
+
+Sideload `appPackage/build/internping.zip` in Teams. The deployed host must serve the tab at `/tabs/home`, be listed as a valid domain in the Teams manifest, and use HTTPS.
+
+For Azure, run `atk provision --env dev` followed by `atk deploy --env dev`. The included infrastructure creates a Linux B1 App Service using Node 24 LTS, HTTPS, Always On, one worker, and persistent storage at `/home/data`.
 
 ## 6. Import legacy Outlook data
 
@@ -88,7 +104,7 @@ node scripts/import-outlook-sql.mjs "C:\path\to\events.sql" --dry-run
 node scripts/import-outlook-sql.mjs "C:\path\to\events.sql"
 ```
 
-Add `--reset` only when existing event data should be cleared. The parser extracts supported `INSERT` values; it does not execute the uploaded SQL file directly.
+Add `--reset` only when previously imported data should be removed and recreated. The parser extracts supported `INSERT` values; it does not execute the uploaded SQL file directly. The in-app upload accepts up to 4 MB and 1,000 events per request.
 
 ## 7. Verify the deployment
 

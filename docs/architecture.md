@@ -33,7 +33,7 @@ flowchart LR
 | Frontend | React, TypeScript, Vite | Month/week views, event dialogs, approval side panel, import, role management, and messages |
 | Application host | `@microsoft/teams.apps` with `ExpressAdapter` | Starts the Node server and integrates Teams development tooling |
 | API | Express route handlers | Authentication, authorization, validation, event transitions, and JSON contracts |
-| Persistence | Node.js `DatabaseSync` SQLite | Users, events, assignees, categories, decisions, and audit logs |
+| Persistence | Node.js 24 `DatabaseSync` SQLite | Users, events, assignees, and audit logs |
 | Shared domain | TypeScript types and date utilities | Roles, statuses, categories, request types, and local-date handling |
 | Calendar export | Server-side ICS generator | Produces all-day or timed iCalendar downloads |
 
@@ -52,18 +52,21 @@ The browser API client uses `fetch` and refreshes local state after mutations. T
 
 ## API surface
 
-All routes require authentication except the ICS download.
+All routes require authentication in Entra mode, including the ICS download.
 
 | Method and route | Purpose |
 | --- | --- |
-| `GET /api/me` | Return the current user, events, users, and audit data needed to boot the UI |
+| `GET /api/me` | Return the current user, authentication mode, and role-editing capability |
 | `GET /api/users` | List the team roster |
+| `PATCH /api/users/:id` | Change a user role as an administrator |
+| `GET /api/events?from=&to=` | List events that overlap a date range |
+| `GET /api/events/:id/history` | Return an event's audit history |
+| `GET /api/events/:id/ics` | Download an authenticated event as `.ics` |
 | `POST /api/events` | Validate and create an event |
-| `PUT /api/events/:id` | Update an authorized event |
+| `POST /api/events/import` | Parse and import an Outlook SQL export |
+| `PATCH /api/events/:id` | Update an authorized event |
+| `POST /api/events/:id/decision` | Approve, hold, or reject an event as an administrator |
 | `DELETE /api/events/:id` | Delete an authorized event |
-| `POST /api/decisions` | Approve, hold, or reject an event as an administrator |
-| `POST /api/users/:id/role` | Change a user role as an administrator |
-| `GET /api/ics/:eventId` | Download a single event as `.ics` without authentication |
 
 ## Data model
 
@@ -71,16 +74,14 @@ SQLite is stored in `data/intern-calendar.db` by default and uses write-ahead lo
 
 - `users`: identity, email, display name, role, and UI color
 - `events`: content, category, local dates/times, status, requester, and organizer data
-- `assignees`: many-to-many event assignments
-- `decisions`: administrator actions and reasons
-- `audit_logs`: recorded access and mutations
-- `categories`: supported event categories
+- `event_assignees`: many-to-many event assignments
+- `audit_logs`: creation, update, decision, deletion, and role-change history
 
 Prepared statements bind all database values. SQLite is appropriate for the current small team deployment, but its single-writer model and local file storage require deliberate backup and scaling plans.
 
 ## Authentication and authorization
 
-Production mode is selected when both `ENTRA_TENANT_ID` and `ENTRA_CLIENT_ID` are configured. The API verifies bearer JWTs with Entra's remote JWKS and resolves the application role from the database.
+Production mode is selected when both `ENTRA_TENANT_ID` and `ENTRA_CLIENT_ID` are configured. The API verifies bearer JWT signatures with Entra's remote JWKS and checks audience, issuer, tenant allowlist, the `tid` claim, and the presence of delegated scopes. Application-only tokens without `scp` are rejected. The database-backed role provider resolves the application role.
 
 Without those variables, the server enters development mode and allows local identity switching. Development mode must not be exposed as a production deployment.
 
@@ -109,6 +110,6 @@ stateDiagram-v2
 
 - The application is single-tenant and uses a static Korea ABS STU roster.
 - Calendar dates assume a shared local timezone; recurring events are not implemented.
-- ICS download is anonymous, so event identifiers should be treated as shareable links.
+- ICS download requires the same bearer authentication as other API requests.
 - There is no automatic email, Graph calendar synchronization, rate limiting, or real-time refresh.
 - WAL improves SQLite concurrency but does not provide replication or automatic backup.
