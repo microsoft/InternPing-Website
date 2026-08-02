@@ -15,6 +15,14 @@ InternPing is a Microsoft Teams tab for reviewing intern availability and managi
 | Member | Review the calendar, submit requests, and edit owned requests before approval |
 | Admin | Manage all events, make approval decisions, and manage user roles |
 
+## Workflow at a glance
+
+Use one workspace to review availability, filter schedules, create assignments, export events to Outlook, and manage existing schedules.
+
+![Annotated overview of the complete InternPing workflow, including calendar views, filters, assignment creation, Outlook export, and event management](/img/user-guide/en/06-workflow.png)
+
+*The complete workflow from calendar review to schedule management.*
+
 ## 1. Review the calendar
 
 The app opens in **Week** view by default. Each row represents an intern and each column represents a date, making open days and existing assignments easy to compare.
@@ -27,7 +35,26 @@ The app opens in **Week** view by default. Each row represents an intern and eac
 
 At widths of 640px or less, the calendar grid changes to a date-based agenda. Event details open in a sheet from the bottom of the screen.
 
-{/* SCREENSHOT: calendar-week-overview | Full week view and primary controls */}
+![Annotated overview of the InternPing main screen showing the calendar, filters, pending requests, event details, upload action, and assignment request action](/img/user-guide/en/00-overview.png)
+
+*Main screen: calendar, filtering controls, pending requests, and event details.*
+
+### Filter by status
+
+Select one or more status buttons to limit the calendar to approved, pending, on-hold, or rejected schedules. Select an active status again to remove it from the filter.
+
+![Annotated InternPing week view highlighting the approved, pending, on-hold, and rejected status filters](/img/user-guide/en/02-1-filter-status.png)
+
+*Status filters narrow the calendar to the selected workflow states.*
+
+### Filter by intern
+
+Open the intern selector and choose either all interns or one person. The calendar updates to show only schedules assigned to that selection.
+
+![Annotated InternPing week view highlighting the intern filter dropdown](/img/user-guide/en/02-2-filter-intern.png)
+
+*The intern filter focuses the calendar on one assignee.*
+
 {/* SCREENSHOT: calendar-month-and-mobile | Month view or mobile agenda */}
 
 ## 2. Submit an assignment request
@@ -45,7 +72,10 @@ Events created by non-admin users start as **Pending**. Events created by an adm
 
 The app warns when an assignee already has an overlapping approved event. An all-day event conflicts with another event on an overlapping date. Two timed events conflict only when their time intervals overlap.
 
-{/* SCREENSHOT: create-event-dialog | Complete assignment request form */}
+![Annotated InternPing assignment form showing the title, category, location, dates, times, assignees, request reason, and submit action](/img/user-guide/en/01-add-schedule.png)
+
+*Complete the assignment details, select the target interns, and submit the request.*
+
 {/* SCREENSHOT: event-conflict-warning | Overlapping assignment warning */}
 
 ## 3. Edit or delete an event
@@ -58,7 +88,21 @@ Admins can edit or delete any event. A non-admin can edit an event only when the
 
 Changes are not pushed to other open sessions in real time. Change the displayed period or refresh the page when another user's update is not visible.
 
-{/* SCREENSHOT: event-detail-actions | Edit and delete actions in event details */}
+### Delete a schedule
+
+Select the schedule, review the right-side details, and use the trash icon. The server applies the ownership and role rules described above before deleting the event or removing the current assignee.
+
+![Annotated InternPing schedule details highlighting the selected event and trash icon](/img/user-guide/en/03-delete-schedule.png)
+
+*The trash icon appears in the selected schedule's detail panel when deletion is allowed.*
+
+### Edit a schedule
+
+Select an editable schedule from the calendar or pending list, then use the pencil icon in the detail panel to reopen the event form.
+
+![Annotated InternPing schedule details highlighting a pending event and the pencil icon](/img/user-guide/en/04-edit-schedule.png)
+
+*The pencil icon opens the selected schedule for editing when the user has permission.*
 
 ## 4. Review and decide requests
 
@@ -108,7 +152,10 @@ Use the Outlook organizer's name or email in `requested_by`. A user GUID copied 
 
 The ICS file includes available title, description, location, status, organizer, and assignee details. This is a manual file export, not automatic or two-way Outlook synchronization.
 
-{/* SCREENSHOT: event-ics-download | ICS action in event details */}
+![Annotated InternPing schedule details highlighting the Add to Outlook ICS download action](/img/user-guide/en/05-add-to-outlook.png)
+
+*Select Add to Outlook to download the selected event as an ICS file.*
+
 {/* SCREENSHOT: outlook-save-ics | ICS event opened in Outlook */}
 
 ## 7. Manage user roles
