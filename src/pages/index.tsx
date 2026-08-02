@@ -4,14 +4,10 @@ import Layout from '@theme/Layout';
 import Heading from '@theme/Heading';
 import {
   ArrowRight,
-  CalendarCheck,
   CalendarDays,
   Check,
-  Clock3,
   Download,
-  LayoutDashboard,
   ShieldCheck,
-  Users,
 } from 'lucide-react';
 
 import styles from './index.module.css';
@@ -42,24 +38,10 @@ export default function Home(): ReactNode {
               </div>
               <div className={styles.proof}><span><Check size={16} /> Three roles</span><span><Check size={16} /> SQLite-backed</span><span><Check size={16} /> Entra ready</span></div>
             </div>
-            <div className={styles.productVisual} aria-label="Calendar request dashboard preview">
-              <div className={styles.appRail}><div className={styles.teamsMark}>T</div><Users size={20} /><CalendarCheck size={20} /><LayoutDashboard size={20} /></div>
-              <div className={styles.dashboard}>
-                <div className={styles.dashboardTop}><div><small>Intern Calendar</small><strong>Team schedule</strong></div><span className={styles.avatar}>AM</span></div>
-                <div className={styles.metrics}>
-                  <div><Clock3 size={18} /><small>Pending</small><strong>4</strong></div>
-                  <div><CalendarCheck size={18} /><small>Approved</small><strong>18</strong></div>
-                  <div><Clock3 size={18} /><small>On hold</small><strong>2</strong></div>
-                </div>
-                <div className={styles.requestList}>
-                  <div className={styles.listHeader}><strong>Upcoming events</strong><span>This week</span></div>
-                  <div className={styles.request}><span className={styles.date}>05<small>AUG</small></span><div><strong>Design review</strong><small>10:00 - 11:00 · Room 2A</small></div><b className={styles.approved}>Approved</b></div>
-                  <div className={styles.request}><span className={styles.date}>07<small>AUG</small></span><div><strong>Intern demo day</strong><small>14:00 - 15:30 · Teams meeting</small></div><b className={styles.pending}>Pending</b></div>
-                  <div className={styles.request}><span className={styles.date}>11<small>AUG</small></span><div><strong>Project retro</strong><small>16:00 - 17:00 · Room 4C</small></div><b className={styles.approved}>Approved</b></div>
-                </div>
-              </div>
+            <div className={styles.productVisual}>
+              <img src="img/internping-main.png" alt="InternPing calendar in Microsoft Teams" />
             </div>
-            <p className={styles.visualCaption}>INTERN CALENDAR · TEAM SCHEDULE</p>
+            <p className={styles.visualCaption}>INTERNPING · TEAM CALENDAR</p>
           </div>
         </section>
         <section className={styles.featureBand}>
