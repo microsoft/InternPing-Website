@@ -13,7 +13,7 @@ InternPing is a Microsoft Teams tab app that shows when interns are available an
 
 - **Week view:** one row per intern and one column per date, so open days are easy to spot.
 - **Month view:** the whole month of events and their states.
-- **Mobile view:** on screens narrower than 640px, a per-date list with a sliding detail panel.
+- **Mobile view:** on narrow screens, a per-date list with a sliding detail panel.
 - **Filters:** pick confirmed, pending, on hold, or rejected states, along with specific people.
 - **Quick create:** selecting an empty cell in the week view opens the request dialog with that person and date filled in.
 
@@ -95,7 +95,7 @@ The download steps are in [Add an event to Outlook](./user-guide.md#add-an-event
 
 - Sign-in goes through Teams SSO, and the Entra token is validated on the server.
 - The Teams default, dark, and high contrast themes are applied.
-- On screens narrower than 640px, the calendar becomes a per-date list and details open in a sliding sheet.
+- On narrow screens such as a phone, the calendar becomes a per-date list and details open in a sliding sheet.
 - Dialogs manage focus and messages carry severity text.
 - `frame-ancestors` in the CSP limits which Teams hosts may frame the tab.
 

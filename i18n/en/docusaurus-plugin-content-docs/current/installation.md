@@ -40,7 +40,7 @@ Custom app upload is blocked in your tenant. Ask your Teams administrator to all
 2. Create an assignment request and confirm that it is saved as pending approval.
 3. Confirm that a conflict notice appears when the dates overlap a confirmed event.
 4. Download a confirmed event as ICS and open it in Outlook.
-5. Check the event list and the detail panel on a screen narrower than 640px.
+5. Check the event list and the detail panel on a phone or a narrow window.
 
 ## Common problems
 

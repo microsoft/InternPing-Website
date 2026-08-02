@@ -27,7 +27,7 @@ The app opens on the **week view**. Each row is an intern and each column is a d
 4. Narrow the calendar to one intern with the people filter.
 5. Select an event to see its title, period, location, organizer, assignees, and state.
 
-On screens narrower than 640px, a per-date list replaces the calendar grid. Event details open in a sliding panel.
+On narrow screens, a per-date list replaces the calendar grid. Event details open in a sliding panel.
 
 ![The InternPing main screen showing the calendar, filters, pending list, event details, and the upload and request buttons](/img/user-guide/ko/00-overview.png)
 
