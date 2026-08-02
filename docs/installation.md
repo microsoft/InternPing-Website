@@ -25,7 +25,7 @@ import useBaseUrl from '@docusaurus/useBaseUrl';
 
 ## 2. Teams에 업로드하기
 
-1. Teams 왼쪽 앱 막대에서 **앱**을 엽니다.
+1. Teams 앱 막대에서 **앱**을 엽니다.
 2. **앱 관리 → 앱 업로드 → 사용자 지정 앱 업로드**를 선택합니다.
 3. 내려받은 `internping.zip`을 엽니다.
 4. **추가**를 눌러 개인 탭으로 열거나 팀 또는 채팅에 추가합니다.

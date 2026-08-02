@@ -25,7 +25,7 @@ The current version is 1.0.0.
 
 ## 2. Upload it to Teams
 
-1. Open **Apps** from the app bar on the left side of Teams.
+1. Open **Apps** from the Teams app bar.
 2. Select **Manage your apps → Upload an app → Upload a custom app**.
 3. Open the `internping.zip` file you downloaded.
 4. Select **Add** to open it as a personal tab, or add it to a team or a chat.

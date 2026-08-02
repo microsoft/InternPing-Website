@@ -27,7 +27,7 @@ The app opens on the **week view**. Each row is an intern and each column is a d
 4. Narrow the calendar to one intern with the people filter.
 5. Select an event to see its title, period, location, organizer, assignees, and state.
 
-On screens narrower than 640px, a per-date list replaces the calendar grid. Event details open in a panel that slides up from the bottom.
+On screens narrower than 640px, a per-date list replaces the calendar grid. Event details open in a sliding panel.
 
 ![The InternPing main screen showing the calendar, filters, pending list, event details, and the upload and request buttons](/img/user-guide/ko/00-overview.png)
 
@@ -35,7 +35,7 @@ On screens narrower than 640px, a per-date list replaces the calendar grid. Even
 
 ## Add an event
 
-1. Select **Request assignment** at the top right. Admins see **Create event** in the same place.
+1. Select **Request assignment**. Admins see **Create event** instead.
 2. Enter the event title.
 3. Add a description and a location if you need them.
 4. Pick a category: training, hackathon/customer, meeting, work support, leave/absence, or other.
@@ -84,7 +84,7 @@ Changes are not pushed to screens other people already have open. If you do not 
 
 ### Delete an event
 
-Select the event, review the details on the right, and use the trash icon. The server checks your role and the ownership of the event, then either deletes the whole event or only removes you as an assignee.
+Select the event, review its details, and use the trash icon. The server checks your role and the ownership of the event, then either deletes the whole event or only removes you as an assignee.
 
 ![The InternPing screen highlighting a selected event and the trash icon in the detail panel](/img/user-guide/ko/03-delete-schedule.png)
 
@@ -102,7 +102,7 @@ Select an editable event in the calendar or in the pending list, then use the pe
 
 ### Review and approve events
 
-The right-hand panel on the admin screen lists pending and on-hold events.
+The review panel on the admin screen lists pending and on-hold events.
 
 1. Select the event you want to review.
 2. Check the event details and the assignees' existing confirmed events.
@@ -188,7 +188,7 @@ The last remaining admin and the accounts listed in `ADMIN_EMAILS` cannot lose a
 - **No upload button:** on the current screens, Outlook SQL upload is only shown to intern accounts.
 - **Nothing appears in Outlook:** open the downloaded ICS file and save it into Outlook yourself.
 - **Someone else's change is missing:** there is no live sync, so refresh the page.
-- **A user switcher appears at the top:** that is the unauthenticated development mode used when Entra is not configured. It must not be used on a production server.
+- **A user switcher appears:** that is the unauthenticated development mode used when Entra is not configured. It must not be used on a production server.
 
 </TabItem>
 <TabItem value="mobile" label="Mobile">
@@ -201,7 +201,7 @@ On mobile, per-date event cards replace the wide calendar grid.
 2. Tap **Today** to return to the current week.
 3. Select one or more status filters.
 4. Choose everyone or a single intern in the people filter.
-5. Tap an event card to open the detail panel that slides up from the bottom.
+5. Tap an event card to open the sliding detail panel.
 
 ![The InternPing mobile main screen showing the week's events, status filters, the pending count, and the request button](/img/user-guide/ko/mobile/00-overview.png)
 
@@ -209,7 +209,7 @@ On mobile, per-date event cards replace the wide calendar grid.
 
 ## Add an event \{#mobile-add-schedule}
 
-1. Tap **+ Request assignment** at the top.
+1. Tap **+ Request assignment**.
 2. Enter the title, plus a description and location if needed.
 3. Set the category, the start and end dates, and times if the event is timed.
 4. Select one or more assignees.
@@ -219,7 +219,7 @@ Requests from regular users are saved as **pending approval**, and events create
 
 ![How to fill in an assignment request on InternPing mobile](/img/user-guide/ko/mobile/01-add-schedule.png)
 
-*Work down the dialog from top to bottom, then submit the request.*
+*Fill in the dialog in order, then submit the request.*
 
 ## Filter events \{#mobile-filter}
 
@@ -243,7 +243,7 @@ Open the intern picker and choose everyone or a single person. The event list up
 
 ## Manage events \{#mobile-manage}
 
-Tapping an event card opens the detail panel from the bottom of the screen. Which actions are available depends on your role, the ownership of the event, and its state.
+Tapping an event card opens the detail panel. Which actions are available depends on your role, the ownership of the event, and its state.
 
 ### Delete an event \{#mobile-delete-schedule}
 
@@ -269,7 +269,7 @@ Admins can use the pending count to find requests that need a decision. Open a p
 
 ### Upload Outlook events \{#mobile-outlook-upload}
 
-Interns can tap the upload icon at the top and pick an Outlook `.sql` file stored on the device. Review the titles found and their selection state before importing. The 4MB and 1,000-entry limits also apply on mobile.
+Interns can tap the upload icon and pick an Outlook `.sql` file stored on the device. Review the titles found and their selection state before importing. The 4MB and 1,000-entry limits also apply on mobile.
 
 ## Add an event to Outlook \{#mobile-add-to-outlook}
 
