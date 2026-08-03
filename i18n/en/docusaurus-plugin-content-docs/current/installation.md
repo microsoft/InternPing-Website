@@ -26,15 +26,75 @@ The current version is 1.0.0.
 ## 2. Upload it to Teams
 
 1. Open **Apps** from the Teams app bar.
-2. Select **Manage your apps → Upload an app → Upload a custom app**.
-3. Open the `internping.zip` file you downloaded.
-4. Select **Add** to open it as a personal tab, or add it to a team or a chat.
+2. Select **Manage your apps** at the bottom left.
+3. Select **Upload an app**, then choose **Upload a custom app** in the dialog.
+4. Open the `internping.zip` file you downloaded.
 
-:::info If you cannot see the upload option
+**Submit an app** in the same dialog sends the package to your IT admin for org-wide approval. To use it just for yourself or your team, choose **Upload a custom app**.
+
+![The Teams manage apps screen with the upload dialog showing the custom app upload and submit an app options](/img/installation/ko/00-upload-app.png)
+
+*Choose Upload a custom app under Manage your apps → Upload an app.*
+
+:::info[If you cannot see the upload option]
 Custom app upload is blocked in your tenant. Ask your Teams administrator to allow custom app upload in the app setup policy.
 :::
 
-## 3. Verify the installation
+## 3. Add the app
+
+Once the package is read, the InternPing app dialog opens.
+
+1. Check the app name, the publisher (Microsoft Intern Team), and the description.
+2. Select **Add**.
+
+![The InternPing app details in Teams with the Add button and the personal app and tab capabilities](/img/installation/ko/01-1-add-app.png)
+
+*Review the app details, then select Add.*
+
+After it is added, Teams asks where you want to use the app.
+
+- Select **Open** to run it right away as a personal tab.
+- Or pick a channel or a chat in the search box below to add it there as a tab.
+
+![The Teams dialog after the app is added, showing the Open button and the channel and chat pickers](/img/installation/ko/01-2-added.png)
+
+*Open it as a personal tab, or add it as a tab in a channel or chat.*
+
+## 4. Consent to the sign-in permissions
+
+The first time you open the app, you go through a one-time consent flow. Events cannot load until you finish it.
+
+1. Select **Continue** in the **Almost there!** dialog.
+2. Confirm the work account you want to use in the Microsoft sign-in window.
+3. Review the requested permissions (view your basic profile, maintain access to data you have given it access to) and select **Accept**.
+
+![The InternPing tab showing the additional permissions notice and the Continue button](/img/installation/ko/02-consent-prompt.png)
+
+*The additional permissions notice appears only on the first run.*
+
+![The Microsoft consent screen requesting basic profile access and maintained data access](/img/installation/ko/03-permissions.png)
+
+*Review the requested permissions, then select Accept.*
+
+:::note[About the unverified label]
+The consent screen shows `unverified` under the app name along with "This application is not published by Microsoft or your organization". That is expected: InternPing is an internal project app registered in Entra, not a marketplace listing. Confirm the app name is `intern-calendar-aad` before you continue.
+:::
+
+If you select **Cancel** or close the window before consent completes, the tab shows the error `Authorization: Bearer <token> 헤더가 필요합니다.` Select **···** at the top right of the tab and choose **Reload app** to fetch a new token; the app then loads normally.
+
+<div className="image-row">
+
+![The InternPing tab showing the error about a required Authorization Bearer token header](/img/installation/ko/04-auth-error.png)
+
+![The tab overflow menu at the top right highlighting the Reload app command](/img/installation/ko/04-1-reload-app.png)
+
+</div>
+
+*The error on the left appears when consent was not completed. Reloading the app from **··· → Reload app** clears it.*
+
+If the same error remains after reloading, go through the consent flow again from the start.
+
+## 5. Verify the installation
 
 1. Check that your name and role appear in the InternPing tab.
 2. Create an assignment request and confirm that it is saved as pending approval.
@@ -48,6 +108,8 @@ Custom app upload is blocked in your tenant. Ask your Teams administrator to all
 | --- | --- |
 | No upload option in Teams | Check the custom app upload policy in Teams. |
 | The tab opens as a blank screen | Restart Teams and confirm that you signed in with your work account. |
+| `Authorization: Bearer <token> 헤더가 필요합니다.` error | Select **··· → Reload app** at the top right of the tab. If it persists, finish the consent flow with **Continue → Accept**. |
+| The consent screen says unverified | Expected for an internal app that is not listed in the marketplace. Confirm the app name is `intern-calendar-aad`. |
 | Sign-in works but no events appear | Confirm that your account belongs to the tenant where InternPing is deployed. |
 | No approval controls | Approve, hold, and reject are only visible to admins. Ask an admin to change your role. |
 | A new version is not applied | Remove the existing app and upload the latest package again. |

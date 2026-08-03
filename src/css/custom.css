@@ -88,6 +88,10 @@ body { color: var(--fluent-neutral-foreground); background: var(--fluent-canvas)
 .guide-platform-tabs > .tabs .tabs__item { min-width: 96px; margin: 0; padding: 8px 18px; text-align: center; border: 0; border-radius: 6px; }
 .guide-platform-tabs > .tabs .tabs__item--active { color: #fff; background: var(--brand-pink-deep); box-shadow: var(--fluent-shadow-4); }
 .guide-platform-tabs img { width: 100%; margin-top: 1rem; }
+/* 두 장을 나란히 놓는 스크린샷 묶음입니다. 마크다운 이미지는 p로 감싸여 렌더링됩니다. */
+.image-row { display: flex; align-items: center; justify-content: center; gap: 16px; flex-wrap: wrap; margin-bottom: 1rem; }
+.image-row > p { flex: 0 1 auto; min-width: 0; margin: 0; }
+.image-row img { max-width: 100%; max-height: 260px; width: auto; object-fit: contain; }
 /* Keep text readable where the browser cannot blur the backdrop. */
 @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
   .theme-doc-sidebar-container, .pagination-nav__link, .theme-code-block { background: rgba(255,255,255,.95) !important; }

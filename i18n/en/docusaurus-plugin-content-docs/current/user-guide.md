@@ -102,23 +102,25 @@ Select an editable event in the calendar or in the pending list, then use the pe
 
 ### Review and approve events
 
-The review panel on the admin screen lists pending and on-hold events.
+The **Pending** panel on the right side of the admin screen lists every request that has not been decided yet, along with the count. You can also select a pending event directly in the calendar.
 
-1. Select the event you want to review.
-2. Check the event details and the assignees' existing confirmed events.
-3. Enter a reason if one is needed.
-4. Choose approve, hold, or reject.
+1. Select an event in the **Pending** list or in the calendar.
+2. Check the period, category, assignees, and requester in **Event details**.
+3. If needed, check the calendar to see whether the assignees already have confirmed events at that time.
+4. Enter a reason in the **Approval/hold reason** box. It is optional.
+5. Choose **Approve**, **Hold**, or **Reject**.
 
 | Decision | Result |
 | --- | --- |
 | Approve | The event becomes a confirmed entry on the team calendar. |
-| Hold | The event stays open while you wait for more information or coordination. |
+| Hold | The event stays open while you wait for more information or coordination. You can approve or reject it later. |
 | Reject | The assignment request is turned down. |
 
-Requests, edits, approvals, holds, rejections, and deletions are all kept in the event history. Decisions are not sent out automatically as Teams messages or email.
+The decision buttons appear only for admins, and only on events that are pending or on hold. Requests, edits, approvals, holds, rejections, and deletions are all kept in the event history. Decisions are not sent out automatically as Teams messages or email.
 
-{/* SCREENSHOT: admin-approval-queue */}
-{/* SCREENSHOT: admin-decision-history */}
+![The InternPing admin screen showing the pending list, the reason box in the event details, and the approve, hold, and reject buttons](/img/user-guide/ko/07-approval.png)
+
+*Selecting a pending event shows the reason box and the approve, hold, and reject buttons below the details.*
 
 ### Upload Outlook events
 
@@ -132,7 +134,7 @@ On the current screens the **Upload events** button is shown to interns. Events 
 
 A single upload handles up to 4MB or 1,000 entries. For the merge rules and how the SQL is handled, see [Outlook SQL event upload](./features.md#outlook-sql-event-upload).
 
-:::warning The `requested_by` field
+:::warning[The `requested_by` field]
 Use the Outlook organizer's name or email in `requested_by`. A user GUID copied from another database cannot be matched to an InternPing user.
 :::
 
@@ -164,13 +166,26 @@ From a single screen you can check intern schedules, filter them, request an ass
 
 ## Manage user roles
 
-1. Open **User management** with an admin account.
-2. Assign the admin, member, or intern role to a user.
-3. Confirm that the new role is shown.
+The **User management** button is shown only to admins, at the top right of the screen next to **Create event**.
+
+1. Select **User management** at the top right with an admin account.
+2. Find the user in the list by name or email. Your own account is marked with a **Me** badge.
+3. Select **Admin**, **Member**, or **Intern** on the right of that user. The current role is highlighted.
+4. Confirm that the highlight moved to the role you picked, then close the dialog.
+
+| Role | What it can do |
+| --- | --- |
+| Admin | Create, edit, and delete any event; approve, hold, or reject requests; assign user roles |
+| Member | Request assignments; edit or delete their own requests that are not confirmed yet |
+| Intern | Everything a member can do, plus Outlook SQL event upload |
+
+A role change takes effect immediately, but it is not pushed to that user's open screen. They need to refresh the page to see the new permissions.
 
 The last remaining admin and the accounts listed in `ADMIN_EMAILS` cannot lose admin rights from the app screens.
 
-{/* SCREENSHOT: user-role-management */}
+![The InternPing user management dialog showing the user list and the admin, member, and intern role buttons](/img/user-guide/ko/08-user-role.png)
+
+*Assign the admin, member, or intern role to each user in the user management dialog.*
 
 ## What the states mean
 
