@@ -88,6 +88,14 @@ body { color: var(--fluent-neutral-foreground); background: var(--fluent-canvas)
 .guide-platform-tabs > .tabs .tabs__item { min-width: 96px; margin: 0; padding: 8px 18px; text-align: center; border: 0; border-radius: 6px; }
 .guide-platform-tabs > .tabs .tabs__item--active { color: #fff; background: var(--brand-pink-deep); box-shadow: var(--fluent-shadow-4); }
 .guide-platform-tabs img { width: 100%; margin-top: 1rem; }
+/* Fluent MessageBar처럼 배경은 중립 회색으로 두고 종류는 왼쪽 막대와 아이콘 색으로만 구분합니다. */
+.theme-admonition { position: relative; margin-bottom: 1.25rem; padding: 12px 16px 12px 19px; color: var(--fluent-neutral-foreground-2); border: 1px solid var(--fluent-neutral-stroke-2); border-left: 0; border-radius: 0 8px 8px 0; background: var(--fluent-surface-3); box-shadow: none; --admonition-accent: var(--fluent-neutral-foreground-4); }
+.theme-admonition::before { content: ''; position: absolute; top: 0; bottom: 0; left: 0; width: 3px; background: var(--admonition-accent); }
+.theme-admonition [class*='admonitionHeading'] { color: var(--fluent-neutral-foreground); font-size: .92rem; text-transform: none; }
+.theme-admonition [class*='admonitionIcon'] svg { fill: var(--admonition-accent); }
+.theme-admonition-warning, .theme-admonition-caution { --admonition-accent: var(--brand-coral-deep); }
+.theme-admonition-danger { --admonition-accent: var(--brand-pink-deep); }
+.theme-admonition-tip { --admonition-accent: var(--brand-violet-deep); }
 /* 두 장을 나란히 놓는 스크린샷 묶음입니다. 마크다운 이미지는 p로 감싸여 렌더링됩니다. */
 .image-row { display: flex; align-items: center; justify-content: center; gap: 16px; flex-wrap: wrap; margin-bottom: 1rem; }
 .image-row > p { flex: 0 1 auto; min-width: 0; margin: 0; }
