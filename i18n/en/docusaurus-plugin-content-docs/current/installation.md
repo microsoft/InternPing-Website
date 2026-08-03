@@ -80,7 +80,7 @@ The first time you open the app, you go through a one-time consent flow. Events 
 The consent screen shows `unverified` under the app name along with "This application is not published by Microsoft or your organization". That is expected: InternPing is an internal project app registered in Entra, not a marketplace listing. Confirm the app name is `intern-calendar-aad` before you continue.
 :::
 
-If you select **Cancel** or close the window before consent completes, the tab shows the error `Authorization: Bearer <token> 헤더가 필요합니다.` Select **···** at the top right of the tab and choose **Reload app** to fetch a new token; the app then loads normally.
+Even after you finish the consent, the tab can still show the error `Authorization: Bearer <token> 헤더가 필요합니다.` Select **···** at the top right of the tab and choose **Reload app**; the tab picks up the token again and the app opens normally.
 
 <div className="image-row">
 
@@ -90,7 +90,7 @@ If you select **Cancel** or close the window before consent completes, the tab s
 
 </div>
 
-*The error on the left appears when consent was not completed. Reloading the app from **··· → Reload app** clears it.*
+*When you see the error on the left, reload the app from **··· → Reload app**.*
 
 If the same error remains after reloading, go through the consent flow again from the start.
 
@@ -108,7 +108,7 @@ If the same error remains after reloading, go through the consent flow again fro
 | --- | --- |
 | No upload option in Teams | Check the custom app upload policy in Teams. |
 | The tab opens as a blank screen | Restart Teams and confirm that you signed in with your work account. |
-| `Authorization: Bearer <token> 헤더가 필요합니다.` error | Select **··· → Reload app** at the top right of the tab. If it persists, finish the consent flow with **Continue → Accept**. |
+| `Authorization: Bearer <token> 헤더가 필요합니다.` error | It can appear even after you consented. Select **··· → Reload app** at the top right of the tab. If it persists, finish the consent flow with **Continue → Accept**. |
 | The consent screen says unverified | Expected for an internal app that is not listed in the marketplace. Confirm the app name is `intern-calendar-aad`. |
 | Sign-in works but no events appear | Confirm that your account belongs to the tenant where InternPing is deployed. |
 | No approval controls | Approve, hold, and reject are only visible to admins. Ask an admin to change your role. |

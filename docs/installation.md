@@ -80,7 +80,7 @@ import useBaseUrl from '@docusaurus/useBaseUrl';
 동의 화면의 앱 이름 아래에 `unverified`와 "This application is not published by Microsoft or your organization" 문구가 나옵니다. 인턴핑은 Microsoft 마켓플레이스에 게시된 앱이 아니라 사내 프로젝트로 만든 Entra 앱이라 나타나는 정상적인 안내입니다. 앱 이름이 `intern-calendar-aad`인지 확인한 뒤 진행합니다.
 :::
 
-**Cancel**을 눌렀거나 창을 닫아서 동의를 마치지 못하면 탭에 `Authorization: Bearer <token> 헤더가 필요합니다.` 오류가 표시됩니다. 이때 탭 오른쪽 위의 **···** 아이콘을 누르고 **앱 다시 로드**를 선택하면 토큰을 다시 받아 앱이 정상적으로 열립니다.
+권한에 동의했더라도 탭에 `Authorization: Bearer <token> 헤더가 필요합니다.` 오류가 표시될 수 있습니다. 이때 탭 오른쪽 위의 **···** 아이콘을 누르고 **앱 다시 로드**를 선택하면 토큰을 다시 받아 앱이 정상적으로 열립니다.
 
 <div className="image-row">
 
@@ -90,7 +90,7 @@ import useBaseUrl from '@docusaurus/useBaseUrl';
 
 </div>
 
-*권한 동의를 마치지 않으면 왼쪽 오류가 표시됩니다. **··· → 앱 다시 로드**로 다시 불러오면 해결됩니다.*
+*왼쪽 오류가 보이면 **··· → 앱 다시 로드**로 다시 불러오면 해결됩니다.*
 
 앱을 다시 로드해도 같은 오류가 남아 있으면 동의 절차를 처음부터 다시 진행합니다.
 
@@ -108,7 +108,7 @@ import useBaseUrl from '@docusaurus/useBaseUrl';
 | --- | --- |
 | 앱 업로드 메뉴가 없음 | Teams의 사용자 지정 앱 업로드 정책을 확인합니다. |
 | 탭이 빈 화면으로 열림 | Teams를 다시 시작하고 조직 계정으로 로그인했는지 확인합니다. |
-| `Authorization: Bearer <token> 헤더가 필요합니다.` 오류 | 탭 오른쪽 위 **··· → 앱 다시 로드**를 선택합니다. 그래도 남아 있으면 **Continue → Accept**로 권한 동의를 마칩니다. |
+| `Authorization: Bearer <token> 헤더가 필요합니다.` 오류 | 권한에 동의했어도 나타날 수 있습니다. 탭 오른쪽 위 **··· → 앱 다시 로드**를 선택합니다. 그래도 남아 있으면 **Continue → Accept**로 권한 동의를 마칩니다. |
 | 동의 화면에 unverified 표시 | 마켓플레이스에 게시되지 않은 사내 앱이라 표시되는 정상 안내입니다. 앱 이름이 `intern-calendar-aad`인지 확인합니다. |
 | 로그인은 되는데 일정이 안 보임 | 사용 중인 계정이 인턴핑이 배포된 테넌트 소속인지 확인합니다. |
 | 승인 메뉴가 없음 | 승인·보류·반려는 관리자 역할에서만 보입니다. 담당 관리자에게 역할 변경을 요청합니다. |
