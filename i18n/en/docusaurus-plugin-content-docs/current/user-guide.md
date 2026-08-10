@@ -152,10 +152,6 @@ On the current screens the **Upload events** button is shown to interns. Events 
 
 A single upload handles up to 4MB or 1,000 entries. For the merge rules and how the SQL is handled, see [Outlook SQL event upload](./features.md#outlook-sql-event-upload).
 
-:::warning[The `requested_by` field]
-Use the Outlook organizer's name or email in `requested_by`. A user GUID copied from another database cannot be matched to an InternPing user.
-:::
-
 {/* SCREENSHOT: outlook-upload-select */}
 {/* SCREENSHOT: outlook-upload-preview */}
 

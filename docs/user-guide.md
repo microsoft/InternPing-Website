@@ -152,10 +152,6 @@ import TabItem from '@theme/TabItem';
 
 한 번에 최대 4MB 또는 1,000건까지 처리합니다. 중복 일정 병합 기준과 SQL 처리 방식은 [Outlook SQL 일정 업로드](./features.md#outlook-sql-일정-업로드)를 참고하세요.
 
-:::warning[`requested_by` 필드]
-`requested_by`에는 Outlook 주최자의 이름이나 이메일을 사용합니다. 다른 데이터베이스에서 복사한 사용자 GUID는 인턴핑 사용자와 연결할 수 없습니다.
-:::
-
 {/* SCREENSHOT: outlook-upload-select | SQL 파일 선택 */}
 {/* SCREENSHOT: outlook-upload-preview | 제목 선택과 업로드 결과 */}
 
