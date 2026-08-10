@@ -302,7 +302,21 @@ Admins can use the pending count to find requests that need a decision. Open a p
 
 ### Get event notifications \{#mobile-notifications}
 
-When an event you are assigned to is created, changed, or dropped, a notification arrives in the InternPing **Chat** tab. The message carries the event title and category, the date and time, and who made the change, and the assignment and change notifications offer **Add to Outlook** for the ICS file. The notifications are the same as on PC.
+You get the same notifications in the InternPing **Chat** on Teams mobile. When an event you are assigned to changes, a notification message arrives, and there is nothing to turn on to receive them.
+
+| Notification | When it is sent |
+| --- | --- |
+| A new event was assigned to you. | An event that includes you as an assignee is created |
+| An event was changed. | The details of an event you are assigned to are edited |
+| You were removed from an event. | An event you are assigned to is deleted, or you are dropped from its assignees |
+
+Each message carries the event title and category, the date and time, the location, and who made the change. In the assignment and change notifications, tap **Add to Outlook** to download that event as an ICS file right away.
+
+If you already added the event to Outlook and it changes, delete the existing entry and add it again. When an event is deleted, remove it from Outlook yourself. Approve, hold, and reject decisions are not sent as notifications.
+
+![The InternPing mobile chat screen showing the new assignment, event changed, and removed from event notifications with the Add to Outlook link](/img/user-guide/ko/mobile/07-bot-notifications.png)
+
+*Check the assignment, change, and removal notifications in the mobile chat too, and add the event to Outlook from there.*
 
 ### Upload Outlook events \{#mobile-outlook-upload}
 
