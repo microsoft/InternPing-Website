@@ -21,7 +21,7 @@ InternPing is installed by uploading a Teams app package (`.zip`). The package c
 
 <a className="download-cta" href={useBaseUrl('/download/internping.zip')} download>Download the InternPing package (.zip)</a>
 
-The current version is 1.0.0.
+The current version is 1.2.0. It installs a Chat tab that sends event notifications alongside the calendar tab.
 
 ## 2. Upload it to Teams
 

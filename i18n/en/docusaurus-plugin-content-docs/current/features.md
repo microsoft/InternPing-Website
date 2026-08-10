@@ -87,9 +87,21 @@ Authenticated users can download an `.ics` file from the event details. The file
 - Timed events are converted to UTC based on the default `Asia/Seoul` time zone.
 - File names and text are normalized to RFC 5545.
 
-ICS export is manual. Automatic Outlook sync, email delivery, and Teams notifications are not provided.
+ICS export is manual. Automatic Outlook sync and email delivery are not provided.
 
 The download steps are in [Add an event to Outlook](./user-guide.md#add-an-event-to-outlook).
+
+## Teams notifications
+
+The InternPing package includes a personal bot that runs as a **Chat** tab. It notifies only the assignees of an event, in a personal chat, and needs no extra setup.
+
+- **New assignment:** an event that includes them as an assignee is created
+- **Event changed:** the details of an assigned event are edited
+- **Removed from an event:** the event is deleted, or the person is dropped from its assignees
+
+Each message carries the title and category, the date and time, and who made the change. The assignment and change notifications also show an **Add to Outlook** link that downloads the ICS file directly. Approve, hold, and reject decisions are not sent as notifications.
+
+How to read the notifications is described in [Get event notifications](./user-guide.md#get-event-notifications).
 
 ## Teams and mobile behavior
 
@@ -103,7 +115,7 @@ The download steps are in [Add an event to Outlook](./user-guide.md#add-an-event
 
 - Automatic Outlook sync through Microsoft Graph
 - Recurring events
-- Email or Adaptive Card notifications for approvals and rejections
+- Email notifications for approvals and rejections
 - Live screen updates and offline use
 - Scaling across multiple server instances
 - Adding or removing the team roster itself from the admin screens

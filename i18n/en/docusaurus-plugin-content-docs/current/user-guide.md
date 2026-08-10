@@ -122,6 +122,24 @@ The decision buttons appear only for admins, and only on events that are pending
 
 *Selecting a pending event shows the reason box and the approve, hold, and reject buttons below the details.*
 
+### Get event notifications
+
+InternPing also installs a **Chat** tab. When an event you are assigned to changes, InternPing posts a notification in that chat. There is nothing to turn on to receive them.
+
+| Notification | When it is sent |
+| --- | --- |
+| A new event was assigned to you. | An event that includes you as an assignee is created |
+| An event was changed. | The details of an event you are assigned to are edited |
+| You were removed from an event. | An event you are assigned to is deleted, or you are dropped from its assignees |
+
+Each message carries the event title and category, the date and time, and who made the change. In the assignment and change notifications, select **Add to Outlook** to download that event as an ICS file right away.
+
+If you already added the event to Outlook and it changes, delete the existing entry and add it again. When an event is deleted, remove it from Outlook yourself. Approve, hold, and reject decisions are not sent as notifications.
+
+![The InternPing chat screen showing the new assignment, event changed, and removed from event notifications with the Add to Outlook link](/img/user-guide/ko/09-bot-notifications.png)
+
+*Check the assignment, change, and removal notifications in the Chat tab, and add the event to Outlook from there.*
+
 ### Upload Outlook events
 
 On the current screens the **Upload events** button is shown to interns. Events uploaded by an intern are always assigned to that intern. The server API also supports uploading on behalf of a person chosen by an admin, but there is no upload button on the admin screens today.
@@ -281,6 +299,10 @@ Tap the pencil icon in the detail panel, change the details, and save. Regular u
 ### Review and approve events \{#mobile-approval}
 
 Admins can use the pending count to find requests that need a decision. Open a pending or on-hold event, check the details and the assignees, then approve, hold, or reject it. The history and the permission rules are the same as on PC.
+
+### Get event notifications \{#mobile-notifications}
+
+When an event you are assigned to is created, changed, or dropped, a notification arrives in the InternPing **Chat** tab. The message carries the event title and category, the date and time, and who made the change, and the assignment and change notifications offer **Add to Outlook** for the ICS file. The notifications are the same as on PC.
 
 ### Upload Outlook events \{#mobile-outlook-upload}
 

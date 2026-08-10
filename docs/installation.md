@@ -21,7 +21,7 @@ import useBaseUrl from '@docusaurus/useBaseUrl';
 
 <a className="download-cta" href={useBaseUrl('/download/internping.zip')} download>인턴핑 패키지 내려받기 (.zip)</a>
 
-현재 버전은 1.0.0입니다.
+현재 버전은 1.2.0입니다. 캘린더 탭과 함께 일정 알림을 보내는 채팅 탭이 같이 설치됩니다.
 
 ## 2. Teams에 업로드하기
 
